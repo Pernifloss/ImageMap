@@ -69,7 +69,29 @@ public class ImageMapView extends View {
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         this.WIDTH = w;
         this.HEIGHT = h;
-        destination = new Rect(0, 0, WIDTH, HEIGHT);
+        float min = 0;
+        float startX = 0;
+        float startY = 0;
+        if(background.getWidth() > WIDTH || background.getHeight() > HEIGHT){
+            if(background.getWidth() / WIDTH > background.getHeight() / HEIGHT){
+                min = (float) background.getWidth() / WIDTH;
+                startY = HEIGHT/2 - background.getHeight()/min/2;
+            }else{
+                min = (float) background.getHeight() / HEIGHT;
+                startX = WIDTH/2 - background.getWidth()/min/2;
+            }
+        }else{
+            if(WIDTH - background.getWidth() < HEIGHT - background.getHeight()){
+                min = (float)  background.getWidth() / WIDTH ;
+                startY = HEIGHT/2 - background.getHeight()/min/2;
+            }else{
+                min = (float) background.getWidth() / HEIGHT;
+                startX = WIDTH/2 - background.getHeight()/min/2;
+            }
+        }
+
+        destination = new Rect(Math.round(startX), Math.round(startY), Math.round(background.getWidth()/min) + Math.round(startX), Math.round(background.getHeight()/min) + Math.round(startY));
+
         super.onSizeChanged(w, h, oldw, oldh);
     }
 
