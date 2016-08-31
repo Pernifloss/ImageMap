@@ -2,12 +2,9 @@ package com.larypipot.cimi.imagemap;
 
 import android.app.Activity;
 import android.graphics.Point;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 public class MainActivity extends Activity implements ItemClickListener {
@@ -46,23 +43,17 @@ public class MainActivity extends Activity implements ItemClickListener {
         setContentView(R.layout.activity_main);
         imageMapView = (ImageMapView) findViewById(R.id.imageMapView);
         imageMapView.addItems(points);
-        imageMapView.listener =this;
+        imageMapView.itemClickListener = this;
     }
 
     @Override
-    public void onMapAnswerClick(Item answer) {
-        if (selected.contains(answer)){
+    public void onMapItemClick(Item answer) {
+        if (selected.contains(answer)) {
             selected.remove(answer);
-            imageMapView.selectedItem(answer,false);
-        }else {
+            imageMapView.selectedItem(answer, false);
+        } else {
             selected.add(answer);
-            imageMapView.selectedItem(answer,true);
+            imageMapView.selectedItem(answer, true);
         }
-
-    }
-
-    @Override
-    public void onListAnswerClick(Item answer) {
-
     }
 }
