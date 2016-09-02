@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="com.larypipot.cimi.imagemap.ImageMapView">
+        <attr name="backgroundDrawable" format="reference" />
+        <attr name="selectedpDrawable" format="reference" />
+        <attr name="unselectedDrawable" format="reference" />
+    </declare-styleable>
+</resources>
