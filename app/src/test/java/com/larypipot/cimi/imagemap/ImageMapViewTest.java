@@ -1,5 +1,6 @@
 package com.larypipot.cimi.imagemap;
 
+import android.graphics.PointF;
 import android.graphics.Rect;
 
 import org.junit.Test;
@@ -31,8 +32,10 @@ public class ImageMapViewTest {
 
     @Test
     public void getDestinationRect() {
-
-
+        PointF f = new PointF(12f, 15f);
+        f.y = 12f;
+        f.x = 15f;
+        System.out.println(f.y);
     }
 
 

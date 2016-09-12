@@ -1,13 +1,14 @@
 package com.larypipot.cimi.imagemap;
 
 import android.graphics.Point;
+import android.graphics.PointF;
 
 public class Item {
-    public int x;
-    public int y;
+    public float x;
+    public float y;
     public String text;
 
-    public Item(String text, Point point) {
+    public Item(String text, PointF point) {
         this.x = point.x;
         this.y = point.y;
         this.text = text;

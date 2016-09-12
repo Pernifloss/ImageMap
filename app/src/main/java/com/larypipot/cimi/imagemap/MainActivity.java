@@ -2,6 +2,7 @@ package com.larypipot.cimi.imagemap;
 
 import android.app.Activity;
 import android.graphics.Point;
+import android.graphics.PointF;
 import android.os.Bundle;
 
 import java.util.HashSet;
@@ -14,27 +15,27 @@ public class MainActivity extends Activity implements ItemClickListener {
 
     {
         points = new HashSet<>();
-        points.add(new Item("Pedro", new Point(250, 330)));
-        points.add(new Item("Caracasse", new Point(213, 431)));
-        points.add(new Item("Gigot", new Point(294, 493)));
-        points.add(new Item("Flétant", new Point(250, 550)));
-        points.add(new Item("Connrad", new Point(319, 640)));
-        points.add(new Item("Pendouse", new Point(221, 614)));
-        points.add(new Item("Douglat", new Point(221, 789)));
-        points.add(new Item("Merlouse", new Point(250, 104)));
-        points.add(new Item("Fereur", new Point(250, 70)));
-        points.add(new Item("Jorias", new Point(250, 107)));
-        points.add(new Item("Tango", new Point(344, 183)));
-        points.add(new Item("Charli", new Point(400, 550)));
-        points.add(new Item("Begnet", new Point(99, 471)));
-        points.add(new Item("Torla", new Point(100, 522)));
-        points.add(new Item("Fletose", new Point(126, 377)));
-        points.add(new Item("Jisade", new Point(254, 344)));
-        points.add(new Item("Perlut", new Point(330, 480)));
-        points.add(new Item("Doglof", new Point(195, 705)));
-        points.add(new Item("Fleveur", new Point(228, 923)));
-        points.add(new Item("Jorianne", new Point(306, 965)));
-        points.add(new Item("Tagos", new Point(200, 950)));
+        points.add(new Item("Pedro", new PointF(0.5f, 0.33f)));
+        points.add(new Item("Caracasse", new PointF(0.6f, 0.493f)));
+        points.add(new Item("Gigot", new PointF(0.5f, 0.550f)));
+        points.add(new Item("Flétant", new PointF(0.638f, 0.640f)));
+        points.add(new Item("Connrad", new PointF(0.442f, 0.614f)));
+        points.add(new Item("Pendouse", new PointF(0.426f, 0.431f)));
+        points.add(new Item("Douglat", new PointF(0.442f, 0.789f)));
+        points.add(new Item("Merlouse", new PointF(0.5f, 0.104f)));
+        points.add(new Item("Fereur", new PointF(0.5f, 0.07f)));
+        points.add(new Item("Jorias", new PointF(0.5f, 0.107f)));
+        points.add(new Item("Tango", new PointF(0.688f, 0.183f)));
+        points.add(new Item("Charli", new PointF(0.58f, 0.551f)));
+        points.add(new Item("Begnet", new PointF(0.35f, 0.471f)));
+        points.add(new Item("Torla", new PointF(0.4f, 0.522f)));
+        points.add(new Item("Fletose", new PointF(0.32f, 0.377f)));
+        points.add(new Item("Jisade", new PointF(0.5f, 0.344f)));
+        points.add(new Item("Perlut", new PointF(0.66f, 0.480f)));
+        points.add(new Item("Doglof", new PointF(0.39f, 0.705f)));
+        points.add(new Item("Fleveur", new PointF(0.456f, 0.923f)));
+        points.add(new Item("Jorianne", new PointF(0.612f, 0.965f)));
+        points.add(new Item("Tagos", new PointF(0.4f, 0.950f)));
     }
 
     @Override

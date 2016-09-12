@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/imageMapView"
-        app:backgroundDrawable="@drawable/background"
+        app:backgroundDrawable="@drawable/bab"
         app:unselectedDrawable="@drawable/anatomy_dot_unselected"
         app:selectedpDrawable="@drawable/anatomy_dot_selected" />
 
