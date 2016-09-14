@@ -1,60 +1,180 @@
 package com.larypipot.cimi.imagemap;
 
+import android.animation.Animator;
+import android.animation.AnimatorInflater;
 import android.app.Activity;
-import android.graphics.Point;
 import android.graphics.PointF;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
 
+import com.larypipot.cimi.imagemap.Listener.ItemClickListener;
+import com.larypipot.cimi.imagemap.View.NoteImageView;
+
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
-public class MainActivity extends Activity implements ItemClickListener {
-    private Set<Item> points;
-    private ImageMapView imageMapView;
+public class MainActivity extends Activity implements ItemClickListener<Item> {
+    private List<Item> pointsFront;
+    private List<Item> pointsBack;
+    private NoteImageView imageMapView ;
+    private ImageView imageViewRotate ;
+    private  NoteImageView imageMapViewFront ;
     private Set<Item> selected = new HashSet<>();
 
-    {
-        points = new HashSet<>();
-        points.add(new Item("Pedro", new PointF(0.5f, 0.33f)));
-        points.add(new Item("Caracasse", new PointF(0.6f, 0.493f)));
-        points.add(new Item("Gigot", new PointF(0.5f, 0.550f)));
-        points.add(new Item("Flétant", new PointF(0.638f, 0.640f)));
-        points.add(new Item("Connrad", new PointF(0.442f, 0.614f)));
-        points.add(new Item("Pendouse", new PointF(0.426f, 0.431f)));
-        points.add(new Item("Douglat", new PointF(0.442f, 0.789f)));
-        points.add(new Item("Merlouse", new PointF(0.5f, 0.104f)));
-        points.add(new Item("Fereur", new PointF(0.5f, 0.07f)));
-        points.add(new Item("Jorias", new PointF(0.5f, 0.107f)));
-        points.add(new Item("Tango", new PointF(0.688f, 0.183f)));
-        points.add(new Item("Charli", new PointF(0.58f, 0.551f)));
-        points.add(new Item("Begnet", new PointF(0.35f, 0.471f)));
-        points.add(new Item("Torla", new PointF(0.4f, 0.522f)));
-        points.add(new Item("Fletose", new PointF(0.32f, 0.377f)));
-        points.add(new Item("Jisade", new PointF(0.5f, 0.344f)));
-        points.add(new Item("Perlut", new PointF(0.66f, 0.480f)));
-        points.add(new Item("Doglof", new PointF(0.39f, 0.705f)));
-        points.add(new Item("Fleveur", new PointF(0.456f, 0.923f)));
-        points.add(new Item("Jorianne", new PointF(0.612f, 0.965f)));
-        points.add(new Item("Tagos", new PointF(0.4f, 0.950f)));
-    }
+
+    private Animator card_flip_left_out;
+    private Animator card_flip_left_in;
+    private Animator card_flip_right_in;
+    private Animator card_flip_right_out;
+
+    private boolean isFrontShown = true;
+    private Animator.AnimatorListener hideBack = new Animator.AnimatorListener() {
+        @Override
+        public void onAnimationStart(Animator animator) {
+
+        }
+
+        @Override
+        public void onAnimationEnd(Animator animator) {
+            imageMapView.setVisibility(View.INVISIBLE);
+            imageMapViewFront.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        public void onAnimationCancel(Animator animator) {
+
+        }
+
+        @Override
+        public void onAnimationRepeat(Animator animator) {
+
+        }
+    };
+    private Animator.AnimatorListener hideFront = new Animator.AnimatorListener() {
+        @Override
+        public void onAnimationStart(Animator animator) {
+
+        }
+
+        @Override
+        public void onAnimationEnd(Animator animator) {
+            imageMapViewFront.setVisibility(View.INVISIBLE);
+            imageMapView.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        public void onAnimationCancel(Animator animator) {
+
+        }
+
+        @Override
+        public void onAnimationRepeat(Animator animator) {
+
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.e("MainActivity", "onCreate: " );
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        imageMapView = (ImageMapView) findViewById(R.id.imageMapView);
-        imageMapView.addItems(points);
-        imageMapView.itemClickListener = this;
+
+        pointsFront = new ArrayList<>();
+
+
+        pointsFront.add(new Item("Abdominaux", new PointF(0.5f, 0.33f)));
+        pointsFront.add(new Item("Psoas iliaque", new PointF(0.44f, 0.46f)));
+        pointsFront.add(new Item("Adducteur", new PointF(0.48f, 0.55f)));
+        pointsFront.add(new Item("Quadriceps", new PointF(0.600f, 0.580f)));
+        pointsFront.add(new Item("Visage", new PointF(0.5f, 0.064f)));
+        pointsFront.add(new Item("Bras", new PointF(0.252f, 0.37f)));
+        pointsFront.add(new Item("Epaule", new PointF(0.688f, 0.180f)));
+        pointsFront.add(new Item("Hanche", new PointF(0.65f, 0.48f)));
+        pointsFront.add(new Item("Genou", new PointF(0.4f, 0.7f)));
+        pointsFront.add(new Item("Orteil", new PointF(0.4f, 0.950f)));
+        pointsFront.add(new Item("Nez", new PointF(0.5f, 0.120f)));
+
+        pointsBack = new ArrayList<>();
+
+        pointsBack.add(new Item("Ischio-jambier", new PointF(0.440f, 0.620f)));
+        pointsBack.add(new Item("Mollet", new PointF(0.420f, 0.780f)));
+        pointsBack.add(new Item("Tête", new PointF(0.5f, 0.074f)));
+        pointsBack.add(new Item("Doigt", new PointF(0.82f, 0.530f)));
+        pointsBack.add(new Item("Poignet", new PointF(0.19f, 0.47f)));
+        pointsBack.add(new Item("Main", new PointF(0.19f, 0.53f)));
+        pointsBack.add(new Item("Dos", new PointF(0.5f, 0.35f)));
+        pointsBack.add(new Item("Cheville", new PointF(0.43f, 0.92f)));
+        pointsBack.add(new Item("Pied", new PointF(0.60f, 0.96f)));
+        pointsBack.add(new Item("Fessier", new PointF(0.54f, 0.48f)));
+
+        imageMapView = (NoteImageView) findViewById(R.id.imageMapView);
+        imageMapViewFront = (NoteImageView) findViewById(R.id.imageMapViewFront);
+        imageViewRotate = (ImageView) findViewById(R.id.imageViewRotate);
+
+        imageMapView.setAdapter(new NoteImageAdapterImpl(pointsBack,this));
+        imageMapViewFront.setAdapter( new NoteImageAdapterImpl(pointsFront,this));
+       // imageMapViewFront.addItems(pointsFront);
+        imageMapView.getAdapter().setItemClickListener(this);
+        imageMapViewFront.getAdapter().setItemClickListener(this);
+//655
+
+
+
+        card_flip_left_out = AnimatorInflater.loadAnimator(MainActivity.this,R.animator.card_flip_left_out);
+
+
+        card_flip_left_out.setTarget(imageMapViewFront);
+        card_flip_right_in = AnimatorInflater.loadAnimator(MainActivity.this,
+                R.animator.card_flip_right_in);
+        card_flip_right_in.setTarget(imageMapViewFront);
+        card_flip_right_in.addListener(hideBack);
+
+        card_flip_left_in = AnimatorInflater.loadAnimator(MainActivity.this,
+                R.animator.card_flip_left_in);
+        card_flip_left_in.setTarget(imageMapView);
+
+        card_flip_left_in.addListener(hideFront);
+
+        card_flip_right_out = AnimatorInflater.loadAnimator(MainActivity.this,
+                R.animator.card_flip_right_out);
+
+        card_flip_right_out.setTarget(imageMapView);
+
+        imageViewRotate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                imageMapViewFront.setVisibility(View.VISIBLE);
+                imageMapView.setVisibility(View.VISIBLE);
+                if (isFrontShown) {
+                    card_flip_left_out.start();
+                    card_flip_left_in.start();
+                } else {
+                    card_flip_right_out.start();
+                    card_flip_right_in.start();
+                }
+                isFrontShown = !isFrontShown;
+            }
+        });
+        
+
     }
 
     @Override
     public void onMapItemClick(Item answer) {
         if (selected.contains(answer)) {
             selected.remove(answer);
-            imageMapView.selectedItem(answer, false);
+            ((NoteImageAdapterImpl)  imageMapView.getAdapter()).selectedItem(answer, false);
+            ((NoteImageAdapterImpl)  imageMapViewFront.getAdapter()).selectedItem(answer, false);
         } else {
             selected.add(answer);
-            imageMapView.selectedItem(answer, true);
+            ((NoteImageAdapterImpl)  imageMapView.getAdapter()).selectedItem(answer, true);
+            ((NoteImageAdapterImpl) imageMapViewFront.getAdapter()).selectedItem(answer, true);
         }
     }
+
+
 }
