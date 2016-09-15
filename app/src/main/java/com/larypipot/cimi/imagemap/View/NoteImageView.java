@@ -85,7 +85,6 @@ public class NoteImageView extends ImageMapView {
         super.onSizeChanged(w, h, oldw, oldh);
     }
 
-    @Override
     public void setAdapter(final NoteImageAdapter adapter) {
         super.setAdapter(adapter);
         NoteImageView.this.adapter = adapter;
@@ -166,7 +165,7 @@ public class NoteImageView extends ImageMapView {
                     usingPaint = adapter.getPaint(item);
 
                     canvas.drawText(itemText, 0, positionY, usingPaint);
-                    canvas.drawLine(textSize + 20, positionY - (textSizeH / 2), 3 + location.x - (selected.getWidth() / 2), location.y, usingPaint);
+                    canvas.drawLine(textSize + 20, positionY - (textSizeH / 2), 3 + location.x - (adapter.getItemBitmap(item).getWidth() / 2), location.y, usingPaint);
                 }
             }
         }
@@ -201,7 +200,7 @@ public class NoteImageView extends ImageMapView {
                             (height / 2) + (height * i) + Math.round(textSizeH), usingPaint);
 
 
-                    canvas.drawLine(WIDTH - textSize - 20, 5 + positionY + textSizeH / 2, location.x + (selected.getWidth() / 2), location.y, usingPaint);
+                    canvas.drawLine(WIDTH - textSize - 20, 5 + positionY + textSizeH / 2, location.x + (adapter.getItemBitmap(item).getWidth() / 2), location.y, usingPaint);
                 }
             }
         }

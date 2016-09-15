@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">ImageMap</string>
+    <string name="pick_the_bone">Pick the : %s bone</string>
 </resources>

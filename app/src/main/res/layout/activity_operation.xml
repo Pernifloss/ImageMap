@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#CE4029"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    tools:context="com.larypipot.cimi.imagemap.MainActivity">
+
+<TextView
+    android:id="@+id/textViewSelection"
+    android:text="@string/pick_the_bone"
+    android:layout_width="wrap_content"
+    android:layout_centerHorizontal="true"
+    android:textColor="#D2B18A"
+    android:textStyle="bold"
+    android:textSize="20sp"
+    android:layout_height="wrap_content" />
+
+
+    <com.larypipot.cimi.imagemap.View.ImageMapView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/imageMapViewFront"
+        android:layout_below="@+id/textViewSelection"
+        android:background="#CE4029"
+        app:backgroundDrawable="@drawable/background" />
+
+
+</RelativeLayout>

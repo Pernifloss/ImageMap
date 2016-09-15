@@ -11,6 +11,7 @@ import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -33,7 +34,6 @@ public class ImageMapView extends View {
     Map<Rect, Object> clickable = new HashMap<>();
     private LayoutInflater layoutInflater;
     protected Bitmap background;
-    protected Bitmap selected;
     protected Bitmap unselected;
 //    protected Set<Object> items = new HashSet<>();
     protected int WIDTH;
@@ -49,7 +49,7 @@ public class ImageMapView extends View {
     private static float startX;
     private static float startY;
 
-    public void setAdapter(NoteImageAdapter adapter) {
+    public void setAdapter(MapAdapter adapter) {
         this.adapter = adapter;
         adapter.listener = new AdapterListener() {
             @Override
@@ -75,8 +75,6 @@ public class ImageMapView extends View {
                 R.styleable.com_larypipot_cimi_imagemap_ImageMapView, 0, 0);
         try {
             background = BitmapUtils.resAsBitmap(getContext(), typedArray.getResourceId(R.styleable.com_larypipot_cimi_imagemap_ImageMapView_backgroundDrawable, 0));
-            selected = BitmapUtils.resAsBitmap(getContext(), typedArray.getResourceId(R.styleable.com_larypipot_cimi_imagemap_ImageMapView_selectedpDrawable, 0));
-            unselected = BitmapUtils.resAsBitmap(getContext(), typedArray.getResourceId(R.styleable.com_larypipot_cimi_imagemap_ImageMapView_unselectedDrawable, 0));
         } finally {
             typedArray.recycle();
         }
@@ -150,7 +148,7 @@ public class ImageMapView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        canvas.drawColor(Color.WHITE);
+        canvas.drawColor(Color.TRANSPARENT);
         //canvas.drawText("");
         if (background != null) {
             canvas.drawBitmap(background, null, destination, paint);
@@ -218,7 +216,7 @@ public class ImageMapView extends View {
         if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
             int x = Math.round(motionEvent.getX());
             int y = Math.round(motionEvent.getY());
-            // Log.e(TAG, "onTouchEvent: x:"+(motionEvent.getX()/WIDTH)+" y:"+(motionEvent.getY()/HEIGHT) );
+            Log.e(TAG, "onTouchEvent: x:"+((motionEvent.getX()-startX) /backgroundWidth)+" y:"+((motionEvent.getY()-startY)/backgroundHeight) );
             for (Rect rect : clickable.keySet()) {
                 if (doesIntersect(x, y, rect)) {
                     if (adapter.itemClickListener!=null){

@@ -7,6 +7,8 @@ import android.graphics.PointF;
 import com.larypipot.cimi.imagemap.Adapter.MapAdapter;
 import com.larypipot.cimi.imagemap.Util.BitmapUtils;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 public class MapAdapterImpl extends MapAdapter<Item> {
@@ -16,12 +18,17 @@ public class MapAdapterImpl extends MapAdapter<Item> {
     private Bitmap selectedBitmap;
     private Bitmap unselectedBitmap;
 
+    private List<Bitmap> bitmapList;
+    private List<Bitmap> bitmapEmptyList;
+
     public void selectedItem(Item item, boolean isSelected) {
         if (isSelected) {
             selectedItems.add(item);
         } else {
             selectedItems.remove(item);
         }
+
+
         notifyDataSetHasChanged();
     }
 
