@@ -4,9 +4,9 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.PointF;
 
-import com.larypipot.cimi.imagemap.Adapter.MapAdapter;
-import com.larypipot.cimi.imagemap.Adapter.NoteImageAdapter;
-import com.larypipot.cimi.imagemap.View.ImageMapView;
+import com.larypipot.cimi.zonemap.Adapter.MapAdapter;
+import com.larypipot.cimi.zonemap.Adapter.NoteImageAdapter;
+import com.larypipot.cimi.zonemap.View.ImageMapView;
 
 import java.util.HashSet;
 import java.util.List;

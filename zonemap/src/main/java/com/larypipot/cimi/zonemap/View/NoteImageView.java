@@ -1,4 +1,4 @@
-package com.larypipot.cimi.imagemap.View;
+package com.larypipot.cimi.zonemap.View;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -13,7 +13,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.widget.Toast;
 
-import com.larypipot.cimi.imagemap.Adapter.NoteImageAdapter;
+import com.larypipot.cimi.zonemap.Adapter.NoteImageAdapter;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -27,8 +27,9 @@ public class NoteImageView extends ImageMapView {
     private static final String TAG = "NoteImageView";
 
     private final Typeface typeface;
-    private List<String> left;
-    private List<String> right;
+    Paint usingPaint;
+    private List<Object> left;
+    private List<Object> right;
     private NoteImageAdapter adapter;
     private Paint backgroundPaint;
 
@@ -94,25 +95,17 @@ public class NoteImageView extends ImageMapView {
         Map<Float, String> leftMap = new HashMap<>();
         Map<Float, String> rightmapMap = new HashMap<>();
         for (int i = 0; i < adapter.getCount(); i++) {
-            PointF point = adapter.getItemLocation(adapter.getItemAtPosition(i));
+            Object itemAtPosition = adapter.getItemAtPosition(i);
+            PointF point = adapter.getItemLocation(itemAtPosition);
             if (point.x < 0.5f) {
-                leftMap.put(point.y, adapter.getLabel(adapter.getItemAtPosition(i)));
+                left.add(itemAtPosition);
             } else {
-                rightmapMap.put(point.y, adapter.getLabel(adapter.getItemAtPosition(i)));
+                right.add(itemAtPosition);
             }
         }
-        List<Float> sortedLeft = new ArrayList<>();
-        sortedLeft.addAll(leftMap.keySet());
-        Collections.sort(sortedLeft);
-        for (Float f : sortedLeft) {
-            left.add(leftMap.get(f));
-        }
-        List<Float> sortedRight = new ArrayList<>();
-        sortedRight.addAll(rightmapMap.keySet());
-        Collections.sort(sortedRight);
-        for (Float f : sortedRight) {
-            right.add(rightmapMap.get(f));
-        }
+
+        Collections.sort(left, new ItemYComparator());
+        Collections.sort(right, new ItemYComparator());
 
         handler.post(new Runnable() {
             @Override
@@ -134,18 +127,16 @@ public class NoteImageView extends ImageMapView {
         addAllPins(canvas);
     }
 
-    Paint usingPaint;
-
     private void drawnPoints(Canvas canvas) {
         int height;
         if (left.size() > 0) {
 
             height = HEIGHT / left.size();
             for (int i = 0; i < left.size(); i++) {
-                String itemText = left.get(i);
-                Paint paint = adapter.getPaint(getItem(itemText));
+                String itemText = adapter.getLabel(left.get(i));
+                Paint paint = adapter.getLabelPaint(getItem(itemText));
                 Rect textBound = new Rect();
-                float textSize =  paint.measureText(itemText);
+                float textSize = paint.measureText(itemText);
                 this.paint.getTextBounds(itemText, 0, itemText.length() - 1, textBound);
                 float textSizeH = textBound.height();
 
@@ -162,7 +153,7 @@ public class NoteImageView extends ImageMapView {
                             (height / 2) + (height * i) + Math.round(textSizeH));
 
                     clickable.put(rect, item);
-                    usingPaint = adapter.getPaint(item);
+                    usingPaint = adapter.getLabelPaint(item);
 
                     canvas.drawText(itemText, 0, positionY, usingPaint);
                     canvas.drawLine(textSize + 20, positionY - (textSizeH / 2), 3 + location.x - (adapter.getItemBitmap(item).getWidth() / 2), location.y, usingPaint);
@@ -173,10 +164,10 @@ public class NoteImageView extends ImageMapView {
 
             height = HEIGHT / right.size();
             for (int i = 0; i < right.size(); i++) {
-                String itemText = right.get(i);
+                String itemText = adapter.getLabel(right.get(i));
                 Rect textBound = new Rect();
 
-                Paint paint = adapter.getPaint(getItem(itemText));
+                Paint paint = adapter.getLabelPaint(getItem(itemText));
                 float textSize = paint.measureText(itemText);
                 paint.getTextBounds(itemText, 0, itemText.length() - 1, textBound);
                 float textSizeH = textBound.height();
@@ -195,8 +186,8 @@ public class NoteImageView extends ImageMapView {
                     clickable.put(rect, item);
                     // usingPaint = selectedItems.contains(item) ? paintSelected : paint;
 
-                    usingPaint = adapter.getPaint(item);
-                    canvas.drawText(right.get(i), WIDTH - textSize,
+                    usingPaint = adapter.getLabelPaint(item);
+                    canvas.drawText(itemText, WIDTH - textSize,
                             (height / 2) + (height * i) + Math.round(textSizeH), usingPaint);
 
 
@@ -205,7 +196,8 @@ public class NoteImageView extends ImageMapView {
             }
         }
     }
-//TODO REMOVE THIS SHIT
+
+    //TODO REMOVE THIS SHIT
     private Object getItem(String s) {
         for (int i = 0; i < adapter.getCount(); i++) {
             Object itemAtPosition = adapter.getItemAtPosition(i);
@@ -217,11 +209,9 @@ public class NoteImageView extends ImageMapView {
         return null;
     }
 
-
-
-
     /**
      * Display all pins at their respective position onto a canvas
+     *
      * @param canvas Canvas to draw on to
      */
     private void addAllPins(Canvas canvas) {
@@ -255,7 +245,6 @@ public class NoteImageView extends ImageMapView {
         }
     }
 
-
     @Override
     public boolean onTouchEvent(MotionEvent motionEvent) {
         if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
@@ -270,6 +259,20 @@ public class NoteImageView extends ImageMapView {
             }
         }
         return false;
+    }
+
+    public class ItemXComparator implements java.util.Comparator<Object> {
+        @Override
+        public int compare(Object first, Object second) {
+            return Float.compare(adapter.getItemLocation(first).x, adapter.getItemLocation(second).x);
+        }
+    }
+
+    public class ItemYComparator implements java.util.Comparator<Object> {
+        @Override
+        public int compare(Object first, Object second) {
+            return Float.compare(adapter.getItemLocation(first).y, adapter.getItemLocation(second).y);
+        }
     }
 
 }

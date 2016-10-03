@@ -1,10 +1,10 @@
-package com.larypipot.cimi.imagemap.Adapter;
+package com.larypipot.cimi.zonemap.Adapter;
 
 import android.graphics.Bitmap;
 import android.graphics.PointF;
 
-import com.larypipot.cimi.imagemap.Listener.AdapterListener;
-import com.larypipot.cimi.imagemap.Listener.ItemClickListener;
+import com.larypipot.cimi.zonemap.Listener.AdapterListener;
+import com.larypipot.cimi.zonemap.Listener.ItemClickListener;
 
 public abstract class MapAdapter<T> {
     /**

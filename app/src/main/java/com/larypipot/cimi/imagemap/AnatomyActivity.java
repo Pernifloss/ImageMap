@@ -12,14 +12,12 @@ import android.widget.ImageView;
 import com.larypipot.cimi.zonemap.Listener.ItemClickListener;
 import com.larypipot.cimi.zonemap.View.NoteImageView;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
-public class MainActivity extends Activity implements ItemClickListener<Item> {
-    private List<Item> pointsFront;
-    private List<Item> pointsBack;
+public class AnatomyActivity extends Activity implements ItemClickListener<Item> {
+    private Set<Item> pointsFront;
+    private Set<Item> pointsBack;
     private NoteImageView imageMapView ;
     private ImageView imageViewRotate ;
     private  NoteImageView imageMapViewFront ;
@@ -83,13 +81,13 @@ public class MainActivity extends Activity implements ItemClickListener<Item> {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        pointsFront = new ArrayList<>();
+        pointsFront = new HashSet<>();
 
 
         pointsFront.add(new Item("Abdominaux", new PointF(0.5f, 0.33f)));
         pointsFront.add(new Item("Psoas iliaque", new PointF(0.44f, 0.46f)));
         pointsFront.add(new Item("Adducteur", new PointF(0.48f, 0.55f)));
-        pointsFront.add(new Item("Quadriceps", new PointF(0.615f, 0.570f)));
+        pointsFront.add(new Item("Quadriceps", new PointF(0.600f, 0.580f)));
         pointsFront.add(new Item("Visage", new PointF(0.5f, 0.064f)));
         pointsFront.add(new Item("Bras", new PointF(0.252f, 0.37f)));
         pointsFront.add(new Item("Epaule", new PointF(0.688f, 0.180f)));
@@ -98,7 +96,7 @@ public class MainActivity extends Activity implements ItemClickListener<Item> {
         pointsFront.add(new Item("Orteil", new PointF(0.4f, 0.950f)));
         pointsFront.add(new Item("Nez", new PointF(0.5f, 0.120f)));
 
-        pointsBack = new ArrayList<>();
+        pointsBack = new HashSet<>();
 
         pointsBack.add(new Item("Ischio-jambier", new PointF(0.440f, 0.620f)));
         pointsBack.add(new Item("Mollet", new PointF(0.420f, 0.780f)));
@@ -115,8 +113,8 @@ public class MainActivity extends Activity implements ItemClickListener<Item> {
         imageMapViewFront = (NoteImageView) findViewById(R.id.imageMapViewFront);
         imageViewRotate = (ImageView) findViewById(R.id.imageViewRotate);
 
-        imageMapView.setAdapter(new NoteImageAdapterImpl(pointsBack,this));
-        imageMapViewFront.setAdapter( new NoteImageAdapterImpl(pointsFront,this));
+        imageMapView.setAdapter(new AnatomyAdapter(pointsBack,this));
+        imageMapViewFront.setAdapter( new AnatomyAdapter(pointsFront,this));
        // imageMapViewFront.addItems(pointsFront);
         imageMapView.getAdapter().setItemClickListener(this);
         imageMapViewFront.getAdapter().setItemClickListener(this);
@@ -124,22 +122,22 @@ public class MainActivity extends Activity implements ItemClickListener<Item> {
 
 
 
-        card_flip_left_out = AnimatorInflater.loadAnimator(MainActivity.this,R.animator.card_flip_left_out);
+        card_flip_left_out = AnimatorInflater.loadAnimator(AnatomyActivity.this,R.animator.card_flip_left_out);
 
 
         card_flip_left_out.setTarget(imageMapViewFront);
-        card_flip_right_in = AnimatorInflater.loadAnimator(MainActivity.this,
+        card_flip_right_in = AnimatorInflater.loadAnimator(AnatomyActivity.this,
                 R.animator.card_flip_right_in);
         card_flip_right_in.setTarget(imageMapViewFront);
         card_flip_right_in.addListener(hideBack);
 
-        card_flip_left_in = AnimatorInflater.loadAnimator(MainActivity.this,
+        card_flip_left_in = AnimatorInflater.loadAnimator(AnatomyActivity.this,
                 R.animator.card_flip_left_in);
         card_flip_left_in.setTarget(imageMapView);
 
         card_flip_left_in.addListener(hideFront);
 
-        card_flip_right_out = AnimatorInflater.loadAnimator(MainActivity.this,
+        card_flip_right_out = AnimatorInflater.loadAnimator(AnatomyActivity.this,
                 R.animator.card_flip_right_out);
 
         card_flip_right_out.setTarget(imageMapView);
@@ -167,12 +165,12 @@ public class MainActivity extends Activity implements ItemClickListener<Item> {
     public void onMapItemClick(Item answer) {
         if (selected.contains(answer)) {
             selected.remove(answer);
-            ((NoteImageAdapterImpl)  imageMapView.getAdapter()).selectedItem(answer, false);
-            ((NoteImageAdapterImpl)  imageMapViewFront.getAdapter()).selectedItem(answer, false);
+            ((AnatomyAdapter)  imageMapView.getAdapter()).selectedItem(answer, false);
+            ((AnatomyAdapter)  imageMapViewFront.getAdapter()).selectedItem(answer, false);
         } else {
             selected.add(answer);
-            ((NoteImageAdapterImpl)  imageMapView.getAdapter()).selectedItem(answer, true);
-            ((NoteImageAdapterImpl) imageMapViewFront.getAdapter()).selectedItem(answer, true);
+            ((AnatomyAdapter)  imageMapView.getAdapter()).selectedItem(answer, true);
+            ((AnatomyAdapter) imageMapViewFront.getAdapter()).selectedItem(answer, true);
         }
     }
 

@@ -5,9 +5,9 @@ import android.graphics.PointF;
 import android.os.Bundle;
 import android.widget.TextView;
 
-import com.larypipot.cimi.imagemap.Listener.ItemClickListener;
-import com.larypipot.cimi.imagemap.Util.BitmapUtils;
-import com.larypipot.cimi.imagemap.View.ImageMapView;
+import com.larypipot.cimi.zonemap.Listener.ItemClickListener;
+import com.larypipot.cimi.zonemap.Util.BitmapUtils;
+import com.larypipot.cimi.zonemap.View.ImageMapView;
 
 import java.util.ArrayList;
 import java.util.List;

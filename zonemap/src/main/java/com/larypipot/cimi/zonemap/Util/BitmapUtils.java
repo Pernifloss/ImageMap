@@ -1,4 +1,4 @@
-package com.larypipot.cimi.imagemap.Util;
+package com.larypipot.cimi.zonemap.Util;
 
 import android.content.Context;
 import android.graphics.Bitmap;

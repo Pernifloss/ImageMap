@@ -3,7 +3,7 @@ package com.larypipot.cimi.imagemap;
 import android.graphics.PointF;
 import android.graphics.Rect;
 
-import com.larypipot.cimi.imagemap.View.ImageMapView;
+import com.larypipot.cimi.zonemap.View.ImageMapView;
 
 import org.junit.Test;
 

@@ -1,4 +1,4 @@
-package com.larypipot.cimi.imagemap.Listener;
+package com.larypipot.cimi.zonemap.Listener;
 
 public interface AdapterListener {
 

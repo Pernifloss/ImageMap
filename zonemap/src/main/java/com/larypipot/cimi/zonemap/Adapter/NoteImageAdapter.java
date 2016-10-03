@@ -1,13 +1,20 @@
-package com.larypipot.cimi.imagemap.Adapter;
+package com.larypipot.cimi.zonemap.Adapter;
 
 import android.graphics.Paint;
 
 public abstract class NoteImageAdapter<T>  extends MapAdapter<T> {
+
+    private Paint paint;
+
     public abstract Paint getPaint(T item);
 
 
     public  Paint getLabelPaint(T item) {
-        return new Paint();
+
+        paint = new Paint();
+        paint.setAntiAlias(true);
+        paint.setTextSize(22);
+        return paint;
     }
 
     /**

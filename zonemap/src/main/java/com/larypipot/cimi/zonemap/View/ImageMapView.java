@@ -1,4 +1,4 @@
-package com.larypipot.cimi.imagemap.View;
+package com.larypipot.cimi.zonemap.View;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -16,11 +16,10 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.larypipot.cimi.imagemap.Util.BitmapUtils;
-import com.larypipot.cimi.imagemap.Listener.AdapterListener;
-import com.larypipot.cimi.imagemap.Adapter.MapAdapter;
-import com.larypipot.cimi.imagemap.Adapter.NoteImageAdapter;
-import com.larypipot.cimi.imagemap.R;
+import com.larypipot.cimi.zonemap.R;
+import com.larypipot.cimi.zonemap.Util.BitmapUtils;
+import com.larypipot.cimi.zonemap.Listener.AdapterListener;
+import com.larypipot.cimi.zonemap.Adapter.MapAdapter;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -166,31 +165,32 @@ public class ImageMapView extends View {
      * @param canvas Canvas to draw on to
      */
     private void addAllPins(Canvas canvas) {
-        for (int i = 0; i < adapter.getCount(); i++) {
-            Object item = adapter.getItemAtPosition(i);
-            PointF location = getLocation(item);
+        if (adapter!=null){
+            for (int i = 0; i < adapter.getCount(); i++) {
+                Object item = adapter.getItemAtPosition(i);
+                PointF location = getLocation(item);
 
-            Bitmap bitmap = adapter.getItemBitmap(item);// ? selected : unselected;
-            if (bitmap != null) {
-                int bitmapWidth = bitmap.getWidth();
-                int bitmapHeight = bitmap.getHeight();
-                int roundx = Math.round(location.x - (bitmapWidth / 2));
-                int roundy = Math.round(location.y - (bitmapHeight / 2));
+                Bitmap bitmap = adapter.getItemBitmap(item);// ? selected : unselected;
+                if (bitmap != null) {
+                    int bitmapWidth = bitmap.getWidth();
+                    int bitmapHeight = bitmap.getHeight();
+                    int roundx = Math.round(location.x - (bitmapWidth / 2));
+                    int roundy = Math.round(location.y - (bitmapHeight / 2));
 
-                Rect rect = new Rect(
-                        roundx,
-                        roundy,
-                        roundx + bitmapWidth,
-                        roundy + bitmapHeight);
+                    Rect rect = new Rect(
+                            roundx,
+                            roundy,
+                            roundx + bitmapWidth,
+                            roundy + bitmapHeight);
 
-                canvas.drawBitmap(
-                        bitmap,
-                        location.x - (bitmapWidth / 2),
-                        location.y - (bitmapHeight / 2),
-                        paint);
-                clickable.put(rect, item);
+                    canvas.drawBitmap(
+                            bitmap,
+                            location.x - (bitmapWidth / 2),
+                            location.y - (bitmapHeight / 2),
+                            paint);
+                    clickable.put(rect, item);
+                }
             }
-
         }
     }
 

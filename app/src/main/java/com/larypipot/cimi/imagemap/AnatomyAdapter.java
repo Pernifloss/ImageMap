@@ -10,7 +10,7 @@ import com.larypipot.cimi.zonemap.Util.BitmapUtils;
 import java.util.List;
 import java.util.Set;
 
-public class MapAdapterImpl extends MapAdapter<Item> {
+public class AnatomyAdapter extends MapAdapter<Item> {
     private final Set<Item> items;
     private final Context context;
     private Set<Item> selectedItems;
@@ -32,7 +32,7 @@ public class MapAdapterImpl extends MapAdapter<Item> {
     }
 
 
-    public MapAdapterImpl(Set<Item> items, Context context) {
+    public AnatomyAdapter(Set<Item> items, Context context) {
         this.context = context;
         this.items = items;
     }
