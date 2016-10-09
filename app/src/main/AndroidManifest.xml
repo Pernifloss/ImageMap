@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.larypipot.cimi.imagemap">
+    package="com.zechassault.cimi.imagemap">
 
     <application
         android:allowBackup="true"
@@ -8,11 +8,13 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AnatomyActivity" >
+        <activity android:name="com.zechassault.cimi.imagemap.MainActivity" >
         </activity>
-        <activity android:name=".OperationActivity" />
+        <activity android:name="com.zechassault.cimi.imagemap.AnatomyActivity" >
+        </activity>
+        <activity android:name=".operation.OperationActivity" />
 
-      <activity android:name=".MainActivity">
+      <activity android:name=".europe.EuropeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

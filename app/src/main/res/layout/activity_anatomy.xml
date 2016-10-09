@@ -6,10 +6,10 @@
     android:background="#ffffff"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
-    tools:context="com.larypipot.cimi.imagemap.MainActivity">
+    tools:context="com.zechassault.cimi.imagemap.MainActivity">
 
 
-    <com.larypipot.cimi.zonemap.View.NoteImageView
+    <com.zechassault.zonemap.View.NoteImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/imageMapView"
@@ -18,7 +18,7 @@
         app:unselectedDrawable="@drawable/anatomy_dot_unselected"
         app:selectedpDrawable="@drawable/anatomy_dot_selected" />
 
-    <com.larypipot.cimi.zonemap.View.NoteImageView
+    <com.zechassault.zonemap.View.NoteImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/imageMapViewFront"

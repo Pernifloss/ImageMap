@@ -6,7 +6,7 @@
     android:background="#CE4029"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
-    tools:context="com.larypipot.cimi.imagemap.MainActivity">
+    tools:context="com.zechassault.cimi.imagemap.MainActivity">
 
 <TextView
     android:id="@+id/textViewSelection"
@@ -19,7 +19,7 @@
     android:layout_height="wrap_content" />
 
 
-    <com.larypipot.cimi.zonemap.View.ImageMapView
+    <com.zechassault.zonemap.View.ImageMapView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/imageMapViewFront"
