@@ -7,13 +7,15 @@ import android.graphics.PointF;
 import com.zechassault.zonemap.Adapter.MapAdapter;
 import com.zechassault.zonemap.Util.BitmapUtils;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 public class AnatomyAdapter extends MapAdapter<Item> {
-    private final Set<Item> items;
+    private final List<Item> items = new ArrayList<>();
     private final Context context;
-    private Set<Item> selectedItems;
+    private Set<Item> selectedItems = new HashSet<>();
     private Bitmap selectedBitmap;
     private Bitmap unselectedBitmap;
 
@@ -34,7 +36,7 @@ public class AnatomyAdapter extends MapAdapter<Item> {
 
     public AnatomyAdapter(Set<Item> items, Context context) {
         this.context = context;
-        this.items = items;
+        this.items.addAll(items);
     }
 
     @Override
@@ -44,12 +46,12 @@ public class AnatomyAdapter extends MapAdapter<Item> {
 
     @Override
     public Item getItemAtPosition(int position) {
-        return null;
+        return items.get(position);
     }
 
     @Override
     public int getCount() {
-        return 0;
+        return items.size();
     }
 
 

@@ -126,6 +126,7 @@ public class NoteImageView extends ImageMapView {
         }
         bitmapClickable.clear();
         addAllPins(canvas);
+        labelClickable.clear();
         drawnPoints(canvas);
     }
 
@@ -168,7 +169,7 @@ public class NoteImageView extends ImageMapView {
                             positionY - (textHeight / 2),
                             location.x + (itemWidth * adapter.getAnchor(item).x)-(itemWidth/2),
                             location.y + (itemHeight * adapter.getAnchor(item).y)-(itemHeight/2) ,
-                            usingPaint);
+                            adapter.getLinePaint(item));
                 }
             }
         }
@@ -232,58 +233,6 @@ public class NoteImageView extends ImageMapView {
         }
         return super.onTouchEvent(motionEvent);
     }
-    /**
-     * Display all pins at their respective position onto a canvas
-     *
-     *
-     */
-    /*
-    private void addAllPins(Canvas canvas) {
-
-        for (int i = 0; i < adapter.getCount(); i++) {
-            Object item = adapter.getItemAtPosition(i);
-
-            PointF location = getLocation(item);
-
-            Bitmap bitmap = adapter.getItemBitmap(item);
-            if (bitmap != null) {
-                int bitmapWidth = bitmap.getWidth();
-                int bitmapHeight = bitmap.getHeight();
-                int roundx = Math.round(location.x - (bitmapWidth / 2));
-                int roundy = Math.round(location.y - (bitmapHeight / 2));
-
-                Rect rect = new Rect(
-                        roundx,
-                        roundy,
-                        roundx + bitmapWidth,
-                        roundy + bitmapHeight);
-
-                canvas.drawBitmap(
-                        bitmap,
-                        location.x - (bitmapWidth / 2),
-                        location.y - (bitmapHeight / 2),
-                        paint);
-                bitmapClickable.put(rect, item);
-            }
-
-        }
-    }*/
-
-   /* @Override
-    public boolean onTouchEvent(MotionEvent motionEvent) {
-        if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-            int x = Math.round(motionEvent.getX());
-            int y = Math.round(motionEvent.getY());
-            Log.e(TAG, "onTouchEvent: x:" + (motionEvent.getX() / WIDTH) + " y:" + (motionEvent.getY() / HEIGHT));
-            for (Rect rect : bitmapClickable.keySet()) {
-                if (doesIntersect(x, y, rect)) {
-                    adapter.itemClickListener.onMapItemClick(bitmapClickable.get(rect));
-                    Toast.makeText(getContext(), adapter.getLabel(bitmapClickable.get(rect)), Toast.LENGTH_SHORT).show();
-                }
-            }
-        }
-        return false;
-    }*/
 
     public class ItemXComparator implements java.util.Comparator<Object> {
         @Override

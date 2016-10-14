@@ -7,6 +7,8 @@ public class Item {
     public float y;
     public String text;
 
+
+
     public Item(String text, PointF point) {
         this.x = point.x;
         this.y = point.y;

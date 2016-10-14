@@ -16,6 +16,7 @@ public abstract class NoteImageAdapter<T> extends MapAdapter<T> {
         labelPaint.setAntiAlias(true);
         labelPaint.setTextSize(textSize);
         linePaint.setAntiAlias(true);
+        linePaint.setStrokeWidth(4);
     }
 
     /**

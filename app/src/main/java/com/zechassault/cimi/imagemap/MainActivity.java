@@ -86,17 +86,17 @@ public class MainActivity extends Activity implements ItemClickListener<Item> {
         pointsFront = new ArrayList<>();
 
 
-        pointsFront.add(new Item("Abdominaux", new PointF(0.5f, 0.33f)));
-        pointsFront.add(new Item("Psoas iliaque", new PointF(0.44f, 0.46f)));
-        pointsFront.add(new Item("Adducteur", new PointF(0.48f, 0.55f)));
-        pointsFront.add(new Item("Quadriceps", new PointF(0.615f, 0.570f)));
-        pointsFront.add(new Item("Visage", new PointF(0.5f, 0.064f)));
-        pointsFront.add(new Item("Bras", new PointF(0.252f, 0.37f)));
-        pointsFront.add(new Item("Epaule", new PointF(0.688f, 0.180f)));
+        pointsFront.add(new Item("Abdominaux", new PointF(0.493f,0.385f)));
+        pointsFront.add(new Item("Adducteur", new PointF(0.505f, 0.54f)));
+        pointsFront.add(new Item("Quadriceps", new PointF(0.658f, 0.575f)));
+        pointsFront.add(new Item("Visage", new PointF(0.5f, 0.075f)));
+        pointsFront.add(new Item("Bras", new PointF(0.513f,0.273f)));
+        pointsFront.add(new Item("Epaule", new PointF(0.405f, 0.209f)));
         pointsFront.add(new Item("Hanche", new PointF(0.65f, 0.48f)));
         pointsFront.add(new Item("Genou", new PointF(0.4f, 0.7f)));
         pointsFront.add(new Item("Orteil", new PointF(0.4f, 0.950f)));
-        pointsFront.add(new Item("Nez", new PointF(0.5f, 0.120f)));
+        pointsFront.add(new Item("Nez", new PointF(0.515f, 0.093f)));
+        pointsFront.add(new Item("Psoas iliaque", new PointF(0.44f, 0.46f)));
 
         pointsBack = new ArrayList<>();
 
@@ -117,12 +117,11 @@ public class MainActivity extends Activity implements ItemClickListener<Item> {
 
         imageMapView.setAdapter(new NoteImageAdapterImpl(pointsBack,this));
         imageMapViewFront.setAdapter( new NoteImageAdapterImpl(pointsFront,this));
+        imageMapViewFront.setAllowTransparent(false);
        // imageMapViewFront.addItems(pointsFront);
         imageMapView.getAdapter().setItemClickListener(this);
         imageMapViewFront.getAdapter().setItemClickListener(this);
 //655
-
-
 
         card_flip_left_out = AnimatorInflater.loadAnimator(MainActivity.this,R.animator.card_flip_left_out);
 

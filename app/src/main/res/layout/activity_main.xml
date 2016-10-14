@@ -30,12 +30,12 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:id="@+id/imageViewRotate"
-        android:src="@drawable/ic_rotate"
-        android:tint="#71ad77"
+        android:src="@drawable/rotation"
         android:layout_alignTop="@+id/imageMapView"
+        android:background="@drawable/bg_button_light"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginLeft="40dp"
-        android:layout_marginStart="40dp"
+        android:layout_marginLeft="140dp"
+        android:layout_marginStart="140dp"
         android:layout_marginTop="40dp" />
 </RelativeLayout>

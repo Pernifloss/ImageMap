@@ -4,6 +4,8 @@
     <size
         android:width="@dimen/clickableRoundSize"
         android:height="@dimen/clickableRoundSize" />
+
+    <solid android:color="#05000000" />
     <stroke
         android:color="@color/colorAccent"
         android:width="3dp" />
