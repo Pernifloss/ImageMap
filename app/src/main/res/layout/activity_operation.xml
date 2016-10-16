@@ -4,28 +4,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#CE4029"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
-    tools:context="com.zechassault.cimi.imagemap.MainActivity">
+    tools:context=".anatomy.AnatomyActivity">
 
-<TextView
-    android:id="@+id/textViewSelection"
-    android:text="@string/pick_the_bone"
-    android:layout_width="wrap_content"
-    android:layout_centerHorizontal="true"
-    android:textColor="#D2B18A"
-    android:textStyle="bold"
-    android:textSize="20sp"
-    android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/textViewSelection"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="@string/pick_the_bone"
+        android:textColor="#D2B18A"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
 
     <com.zechassault.zonemap.View.ImageMapView
+        android:id="@+id/imageMapViewFront"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/imageMapViewFront"
         android:layout_below="@+id/textViewSelection"
         android:background="#CE4029"
-        app:backgroundDrawable="@drawable/background" />
+        android:src="@drawable/background" />
 
 
 </RelativeLayout>

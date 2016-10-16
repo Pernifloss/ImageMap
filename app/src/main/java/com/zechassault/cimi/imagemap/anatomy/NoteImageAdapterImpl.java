@@ -1,4 +1,4 @@
-package com.zechassault.cimi.imagemap;
+package com.zechassault.cimi.imagemap.anatomy;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -6,6 +6,7 @@ import android.graphics.Paint;
 import android.graphics.PointF;
 import android.support.v4.content.ContextCompat;
 
+import com.zechassault.cimi.imagemap.R;
 import com.zechassault.zonemap.Adapter.NoteImageAdapter;
 import com.zechassault.zonemap.Util.BitmapUtils;
 
@@ -13,8 +14,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class NoteImageAdapterImpl extends NoteImageAdapter<Item> {
-    private final List<Item> items;
+public class NoteImageAdapterImpl extends NoteImageAdapter<AnatomyItem> {
+    private final List<AnatomyItem> items;
     private final Context context;
     private final Bitmap quad;
     private final Bitmap colQuad;
@@ -29,7 +30,7 @@ public class NoteImageAdapterImpl extends NoteImageAdapter<Item> {
     private final Bitmap face;
     private final Bitmap shoulders;
     private final Bitmap shoulders_col;
-    private Set<Item> selectedItems = new HashSet<>();
+    private Set<AnatomyItem> selectedItems = new HashSet<>();
     private Paint labelPaintUnselected;
     private Paint labelPaintSelected;
     private Paint paint;
@@ -37,7 +38,7 @@ public class NoteImageAdapterImpl extends NoteImageAdapter<Item> {
     private Bitmap unselectedBitmap;
     private Bitmap adductor_col;
 
-    public void selectedItem(Item item, boolean isSelected) {
+    public void selectedItem(AnatomyItem item, boolean isSelected) {
         if (isSelected) {
             selectedItems.add(item);
         } else {
@@ -47,7 +48,7 @@ public class NoteImageAdapterImpl extends NoteImageAdapter<Item> {
     }
 
 
-    public NoteImageAdapterImpl(List<Item> items, Context context) {
+    public NoteImageAdapterImpl(List<AnatomyItem> items, Context context) {
         this.context = context;
         this.items = items;
 
@@ -68,15 +69,19 @@ public class NoteImageAdapterImpl extends NoteImageAdapter<Item> {
 
         colQuad = BitmapUtils.resAsBitmap(context, R.drawable.quad_col);
         quad = BitmapUtils.resAsBitmap(context, R.drawable.quad);
+
         abs = BitmapUtils.resAsBitmap(context, R.drawable.abs);
         abs_col = BitmapUtils.resAsBitmap(context, R.drawable.abs_col);
+
         adductor_col = BitmapUtils.resAsBitmap(context, R.drawable.adductor_col);
         adductor = BitmapUtils.resAsBitmap(context, R.drawable.adductor);
 
         arm_col = BitmapUtils.resAsBitmap(context, R.drawable.arms_col);
         arm = BitmapUtils.resAsBitmap(context, R.drawable.arms);
+
         nose_col = BitmapUtils.resAsBitmap(context, R.drawable.nose_col);
         nose = BitmapUtils.resAsBitmap(context, R.drawable.nose);
+
         face_col = BitmapUtils.resAsBitmap(context, R.drawable.face_col);
         face = BitmapUtils.resAsBitmap(context, R.drawable.face);
 
@@ -89,12 +94,12 @@ public class NoteImageAdapterImpl extends NoteImageAdapter<Item> {
     }
 
     @Override
-    public PointF getItemLocation(Item item) {
+    public PointF getItemLocation(AnatomyItem item) {
         return new PointF(item.x, item.y);
     }
 
     @Override
-    public Item getItemAtPosition(int position) {
+    public AnatomyItem getItemAtPosition(int position) {
         return items.get(position);
     }
 
@@ -105,12 +110,12 @@ public class NoteImageAdapterImpl extends NoteImageAdapter<Item> {
 
 
     @Override
-    public String getLabel(Item item) {
+    public String getLabel(AnatomyItem item) {
         return item.getText();
     }
 
     @Override
-    public Bitmap getItemBitmap(Item item) {
+    public Bitmap getItemBitmap(AnatomyItem item) {
         if (item.getText().equals("Quadriceps")) {
             if (selectedItems.contains(item)) {
                 return colQuad;
@@ -161,7 +166,7 @@ public class NoteImageAdapterImpl extends NoteImageAdapter<Item> {
 
 
     @Override
-    public Paint getLabelPaint(Item item) {
+    public Paint getLabelPaint(AnatomyItem item) {
         if (selectedItems.contains(item)) {
             return labelPaintSelected;
         }
@@ -169,7 +174,7 @@ public class NoteImageAdapterImpl extends NoteImageAdapter<Item> {
     }
 
     @Override
-    public PointF getAnchor(Item item) {
+    public PointF getAnchor(AnatomyItem item) {
         if (item.getText().equals("Bras")) {
             return new PointF(0.95f, 0.6f);
         } else if (item.getText().equals("Nez")) {

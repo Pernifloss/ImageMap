@@ -1,4 +1,4 @@
-package com.zechassault.cimi.imagemap;
+package com.zechassault.cimi.imagemap.anatomy;
 
 import android.animation.Animator;
 import android.animation.AnimatorInflater;
@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.zechassault.cimi.imagemap.R;
 import com.zechassault.zonemap.Listener.ItemClickListener;
 import com.zechassault.zonemap.View.NoteImageView;
 
@@ -17,13 +18,13 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class MainActivity extends Activity implements ItemClickListener<Item> {
-    private List<Item> pointsFront;
-    private List<Item> pointsBack;
+public class AnatomyActivity extends Activity implements ItemClickListener<AnatomyItem> {
+    private List<AnatomyItem> pointsFront;
+    private List<AnatomyItem> pointsBack;
     private NoteImageView imageMapView ;
     private ImageView imageViewRotate ;
     private  NoteImageView imageMapViewFront ;
-    private Set<Item> selected = new HashSet<>();
+    private Set<AnatomyItem> selected = new HashSet<>();
 
 
     private Animator card_flip_left_out;
@@ -79,37 +80,37 @@ public class MainActivity extends Activity implements ItemClickListener<Item> {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.e("MainActivity", "onCreate: " );
+        Log.e("AnatomyActivity", "onCreate: ");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         pointsFront = new ArrayList<>();
 
 
-        pointsFront.add(new Item("Abdominaux", new PointF(0.493f,0.385f)));
-        pointsFront.add(new Item("Adducteur", new PointF(0.505f, 0.54f)));
-        pointsFront.add(new Item("Quadriceps", new PointF(0.658f, 0.575f)));
-        pointsFront.add(new Item("Visage", new PointF(0.5f, 0.075f)));
-        pointsFront.add(new Item("Bras", new PointF(0.513f,0.273f)));
-        pointsFront.add(new Item("Epaule", new PointF(0.405f, 0.209f)));
-        pointsFront.add(new Item("Hanche", new PointF(0.65f, 0.48f)));
-        pointsFront.add(new Item("Genou", new PointF(0.4f, 0.7f)));
-        pointsFront.add(new Item("Orteil", new PointF(0.4f, 0.950f)));
-        pointsFront.add(new Item("Nez", new PointF(0.515f, 0.093f)));
-        pointsFront.add(new Item("Psoas iliaque", new PointF(0.44f, 0.46f)));
+        pointsFront.add(new AnatomyItem("Abdominaux", new PointF(0.493f, 0.385f)));
+        pointsFront.add(new AnatomyItem("Adducteur", new PointF(0.505f, 0.54f)));
+        pointsFront.add(new AnatomyItem("Quadriceps", new PointF(0.658f, 0.575f)));
+        pointsFront.add(new AnatomyItem("Visage", new PointF(0.5f, 0.075f)));
+        pointsFront.add(new AnatomyItem("Bras", new PointF(0.513f, 0.273f)));
+        pointsFront.add(new AnatomyItem("Epaule", new PointF(0.405f, 0.209f)));
+        pointsFront.add(new AnatomyItem("Hanche", new PointF(0.65f, 0.48f)));
+        pointsFront.add(new AnatomyItem("Genou", new PointF(0.4f, 0.7f)));
+        pointsFront.add(new AnatomyItem("Orteil", new PointF(0.4f, 0.950f)));
+        pointsFront.add(new AnatomyItem("Nez", new PointF(0.515f, 0.093f)));
+        pointsFront.add(new AnatomyItem("Psoas iliaque", new PointF(0.44f, 0.46f)));
 
         pointsBack = new ArrayList<>();
 
-        pointsBack.add(new Item("Ischio-jambier", new PointF(0.440f, 0.620f)));
-        pointsBack.add(new Item("Mollet", new PointF(0.420f, 0.780f)));
-        pointsBack.add(new Item("Tête", new PointF(0.5f, 0.074f)));
-        pointsBack.add(new Item("Doigt", new PointF(0.82f, 0.530f)));
-        pointsBack.add(new Item("Poignet", new PointF(0.19f, 0.47f)));
-        pointsBack.add(new Item("Main", new PointF(0.19f, 0.53f)));
-        pointsBack.add(new Item("Dos", new PointF(0.5f, 0.35f)));
-        pointsBack.add(new Item("Cheville", new PointF(0.43f, 0.92f)));
-        pointsBack.add(new Item("Pied", new PointF(0.60f, 0.96f)));
-        pointsBack.add(new Item("Fessier", new PointF(0.54f, 0.48f)));
+        pointsBack.add(new AnatomyItem("Ischio-jambier", new PointF(0.440f, 0.620f)));
+        pointsBack.add(new AnatomyItem("Mollet", new PointF(0.420f, 0.780f)));
+        pointsBack.add(new AnatomyItem("Tête", new PointF(0.5f, 0.074f)));
+        pointsBack.add(new AnatomyItem("Doigt", new PointF(0.82f, 0.530f)));
+        pointsBack.add(new AnatomyItem("Poignet", new PointF(0.19f, 0.47f)));
+        pointsBack.add(new AnatomyItem("Main", new PointF(0.19f, 0.53f)));
+        pointsBack.add(new AnatomyItem("Dos", new PointF(0.5f, 0.35f)));
+        pointsBack.add(new AnatomyItem("Cheville", new PointF(0.43f, 0.92f)));
+        pointsBack.add(new AnatomyItem("Pied", new PointF(0.60f, 0.96f)));
+        pointsBack.add(new AnatomyItem("Fessier", new PointF(0.54f, 0.48f)));
 
         imageMapView = (NoteImageView) findViewById(R.id.imageMapView);
         imageMapViewFront = (NoteImageView) findViewById(R.id.imageMapViewFront);
@@ -123,22 +124,22 @@ public class MainActivity extends Activity implements ItemClickListener<Item> {
         imageMapViewFront.getAdapter().setItemClickListener(this);
 //655
 
-        card_flip_left_out = AnimatorInflater.loadAnimator(MainActivity.this,R.animator.card_flip_left_out);
+        card_flip_left_out = AnimatorInflater.loadAnimator(AnatomyActivity.this, R.animator.card_flip_left_out);
 
 
         card_flip_left_out.setTarget(imageMapViewFront);
-        card_flip_right_in = AnimatorInflater.loadAnimator(MainActivity.this,
+        card_flip_right_in = AnimatorInflater.loadAnimator(AnatomyActivity.this,
                 R.animator.card_flip_right_in);
         card_flip_right_in.setTarget(imageMapViewFront);
         card_flip_right_in.addListener(hideBack);
 
-        card_flip_left_in = AnimatorInflater.loadAnimator(MainActivity.this,
+        card_flip_left_in = AnimatorInflater.loadAnimator(AnatomyActivity.this,
                 R.animator.card_flip_left_in);
         card_flip_left_in.setTarget(imageMapView);
 
         card_flip_left_in.addListener(hideFront);
 
-        card_flip_right_out = AnimatorInflater.loadAnimator(MainActivity.this,
+        card_flip_right_out = AnimatorInflater.loadAnimator(AnatomyActivity.this,
                 R.animator.card_flip_right_out);
 
         card_flip_right_out.setTarget(imageMapView);
@@ -163,7 +164,7 @@ public class MainActivity extends Activity implements ItemClickListener<Item> {
     }
 
     @Override
-    public void onMapItemClick(Item answer) {
+    public void onMapItemClick(AnatomyItem answer) {
         if (selected.contains(answer)) {
             selected.remove(answer);
             ((NoteImageAdapterImpl)  imageMapView.getAdapter()).selectedItem(answer, false);

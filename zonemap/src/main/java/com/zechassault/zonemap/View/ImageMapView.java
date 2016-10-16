@@ -79,7 +79,9 @@ public class ImageMapView extends View {
         TypedArray typedArray = context.obtainStyledAttributes(attrs,
                 R.styleable.com_zechassault_zonemap_ImageMapView, 0, 0);
         try {
-            background = BitmapUtils.resAsBitmap(getContext(), typedArray.getResourceId(R.styleable.com_zechassault_zonemap_ImageMapView_backgroundDrawable, 0));
+            int src_resource = attrs.getAttributeResourceValue("http://schemas.android.com/apk/res/android", "src", 0);
+
+            background = BitmapUtils.resAsBitmap(getContext(), src_resource);
         } finally {
             typedArray.recycle();
         }
@@ -91,8 +93,8 @@ public class ImageMapView extends View {
      * Define destination rectangle to fit center an image
      *
      * @param bitmap       the image to fit
-     * @param canvasWidth  the width of the rectangle in which the image will be fittted
-     * @param canvasHeight the height of the rectangle in which the image will be fittted
+     * @param canvasWidth  the width of the rectangle in which the image will be fitted
+     * @param canvasHeight the height of the rectangle in which the image will be fitted
      * @return the rectangle that will contain the fitted bitmap
      */
     static Rect getDestinationRect(Bitmap bitmap, int canvasWidth, int canvasHeight) {
@@ -113,8 +115,8 @@ public class ImageMapView extends View {
                 ratio = (float) bitmap.getHeight() / canvasHeight;
                 startY = canvasHeight / 2 - bitmap.getHeight() / ratio / 2;
             } else {
-                ratio = (float) bitmap.getWidth() / canvasWidth;
-                startX = canvasWidth / 2 - bitmap.getHeight() / ratio / 2;
+                ratio = (float) bitmap.getWidth() / canvasWidth; // shit
+                startX = (canvasWidth / 2) - ((bitmap.getWidth() / ratio) / 2);
             }
         }
         backgroundWidth = Math.round(bitmap.getWidth() / ratio);

@@ -2,10 +2,8 @@ package com.zechassault.cimi.imagemap.europe;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.Paint;
 import android.graphics.PointF;
 
-import com.zechassault.cimi.imagemap.AnatomyAdapter;
 import com.zechassault.zonemap.Adapter.NoteImageAdapter;
 import com.zechassault.zonemap.Listener.ItemClickListener;
 
@@ -14,9 +12,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-/**
- * Created by Lar on 09/10/2016.
- */
 public class CountryAdapter extends NoteImageAdapter<Country> {
     private final List<Country> countries = new ArrayList<>();
     private Set<Country> selected = new HashSet<>();

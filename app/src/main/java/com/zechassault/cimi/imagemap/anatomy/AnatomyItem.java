@@ -1,15 +1,14 @@
-package com.zechassault.cimi.imagemap;
+package com.zechassault.cimi.imagemap.anatomy;
 
 import android.graphics.PointF;
 
-public class Item {
+public class AnatomyItem {
     public float x;
     public float y;
     public String text;
 
 
-
-    public Item(String text, PointF point) {
+    public AnatomyItem(String text, PointF point) {
         this.x = point.x;
         this.y = point.y;
         this.text = text;

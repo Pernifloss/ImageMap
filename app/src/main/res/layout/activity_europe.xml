@@ -4,16 +4,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ffffff"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     tools:context=".europe.EuropeActivity">
 
 
     <com.zechassault.zonemap.View.NoteImageView
+        android:id="@+id/imageMapView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/imageMapView"
-        app:backgroundDrawable="@drawable/europe" />
+        android:src="@drawable/europe" />
 
 
 </RelativeLayout>

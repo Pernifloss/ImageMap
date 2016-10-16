@@ -8,13 +8,11 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AnatomyActivity" >
-        </activity>
-        <activity android:name="com.zechassault.cimi.imagemap.europe.EuropeActivity" >
-        </activity>
+        <activity android:name="com.zechassault.cimi.imagemap.europe.EuropeActivity" />
+        <activity android:name=".anatomy.AnatomyActivity" />
         <activity android:name=".operation.OperationActivity" />
 
-      <activity android:name=".MainActivity">
+        <activity android:name=".StartActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -25,5 +23,3 @@
     </application>
 
 </manifest>
-
-    Sonno qualità

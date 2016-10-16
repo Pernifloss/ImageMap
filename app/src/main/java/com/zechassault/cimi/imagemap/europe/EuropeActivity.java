@@ -1,19 +1,11 @@
 package com.zechassault.cimi.imagemap.europe;
 
-import android.animation.Animator;
-import android.animation.AnimatorInflater;
 import android.app.Activity;
-import android.content.Context;
 import android.graphics.PointF;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.ImageView;
 
-import com.zechassault.cimi.imagemap.AnatomyAdapter;
-import com.zechassault.cimi.imagemap.Item;
 import com.zechassault.cimi.imagemap.R;
-import com.zechassault.zonemap.Listener.ItemClickListener;
+import com.zechassault.cimi.imagemap.anatomy.AnatomyItem;
 import com.zechassault.zonemap.Util.BitmapUtils;
 import com.zechassault.zonemap.View.NoteImageView;
 
@@ -29,7 +21,7 @@ public class EuropeActivity extends Activity {
         setContentView(R.layout.activity_europe);
 
 
-        Set<Item> points = new HashSet<>();
+        Set<AnatomyItem> points = new HashSet<>();
 
 
         NoteImageView imageMapView = (NoteImageView) findViewById(R.id.imageMapView);

@@ -4,9 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ffffff"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
-    tools:context="com.zechassault.cimi.imagemap.MainActivity">
+    tools:context=".anatomy.AnatomyActivity">
 
 
     <com.zechassault.zonemap.View.NoteImageView
@@ -14,17 +13,13 @@
         android:layout_height="match_parent"
         android:id="@+id/imageMapView"
         android:visibility="invisible"
-        app:backgroundDrawable="@drawable/anatomical_chart_back"
-        app:unselectedDrawable="@drawable/anatomy_dot_unselected"
-        app:selectedpDrawable="@drawable/anatomy_dot_selected" />
+        android:src="@drawable/anatomy_dot_selected" />
 
     <com.zechassault.zonemap.View.NoteImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/imageMapViewFront"
-        app:backgroundDrawable="@drawable/anatomical_chart_front"
-        app:unselectedDrawable="@drawable/anatomy_dot_unselected"
-        app:selectedpDrawable="@drawable/anatomy_dot_selected" />
+        android:src="@drawable/anatomy_dot_selected" />
 
     <ImageView
         android:layout_width="50dp"

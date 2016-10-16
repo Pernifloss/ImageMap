@@ -1,8 +1,12 @@
 apply plugin: 'com.android.library'
-
+ext {
+    PUBLISH_GROUP_ID = 'com.zechassault'
+    PUBLISH_ARTIFACT_ID = 'zonemap'
+    PUBLISH_VERSION = '0.0.1'
+}
 android {
     compileSdkVersion 24
-    buildToolsVersion "24.0.2"
+    buildToolsVersion "24.0.3"
 
     defaultConfig {
         minSdkVersion 11
