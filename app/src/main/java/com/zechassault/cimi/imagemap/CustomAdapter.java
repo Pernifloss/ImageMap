@@ -14,6 +14,8 @@ import com.zechassault.cimi.imagemap.domain.DemoActivity;
 
 import java.util.List;
 
+import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
+
 public class CustomAdapter extends BaseAdapter implements AdapterView.OnItemClickListener {
 
     private final LayoutInflater layoutInflater;
@@ -62,8 +64,10 @@ public class CustomAdapter extends BaseAdapter implements AdapterView.OnItemClic
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        ctx.startActivity(new Intent(ctx
-                , getItem(position).getActivity()));
+        Intent intent = new Intent(ctx
+                , getItem(position).getActivity());
+        intent.setFlags(FLAG_ACTIVITY_NEW_TASK);
+        ctx.startActivity(intent);
     }
 
     static class DemoActivityHolder {

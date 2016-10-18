@@ -23,11 +23,10 @@ import java.util.Map;
 
 public class NoteImageView extends ImageMapView {
 
-    private static final String TAG = "NoteImageView";
     public static final int TEXT_MARGIN_RIGHT = 20;
 
-    private final Typeface typeface;
     Paint usingPaint;
+
     private List<Object> left = new ArrayList<>();
     private List<Object> right= new ArrayList<>();
     private NoteImageAdapter adapter;
@@ -37,9 +36,6 @@ public class NoteImageView extends ImageMapView {
 
     public NoteImageView(Context context, AttributeSet attrs) {
         super(context, attrs);
-
-
-        typeface = Typeface.createFromAsset(getResources().getAssets(), "fonts/ARSMaquettePro-Regular.otf");
         backgroundPaint = new Paint();
     }
 
@@ -91,11 +87,13 @@ public class NoteImageView extends ImageMapView {
     public void setAdapter(final NoteImageAdapter adapter) {
         super.setAdapter(adapter);
         NoteImageView.this.adapter = adapter;
-        //  NoteImageView.this.items = adapter.getItems();
+        refreshElements(adapter);
+
+    }
+
+    public void refreshElements(NoteImageAdapter adapter) {
         left = new ArrayList<>();
         right = new ArrayList<>();
-        Map<Float, String> leftMap = new HashMap<>();
-        Map<Float, String> rightmapMap = new HashMap<>();
         for (int i = 0; i < adapter.getCount(); i++) {
             Object itemAtPosition = adapter.getItemAtPosition(i);
             PointF point = adapter.getItemLocation(itemAtPosition);
@@ -115,7 +113,6 @@ public class NoteImageView extends ImageMapView {
                 NoteImageView.this.invalidate();
             }
         });
-
     }
 
     @Override
@@ -232,13 +229,6 @@ public class NoteImageView extends ImageMapView {
             }
         }
         return super.onTouchEvent(motionEvent);
-    }
-
-    public class ItemXComparator implements java.util.Comparator<Object> {
-        @Override
-        public int compare(Object first, Object second) {
-            return Float.compare(adapter.getItemLocation(first).x, adapter.getItemLocation(second).x);
-        }
     }
 
     public class ItemYComparator implements java.util.Comparator<Object> {

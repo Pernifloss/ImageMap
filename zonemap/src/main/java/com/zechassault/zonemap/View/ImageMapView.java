@@ -25,54 +25,33 @@ import java.util.Map;
 
 public class ImageMapView extends View {
 
-    private static final String TAG = "ImageMapView";
+
+    protected static float startX;
+    protected static float startY;
+    protected static float ratio;
+
     private static int backgroundWidth;
     private static int backgroundHeight;
-    Map<Rect, Object> bitmapClickable = new HashMap<>();
+
     protected Bitmap background;
     protected int WIDTH;
     protected int HEIGHT;
     protected MapAdapter adapter;
     protected Paint paint;
     protected Rect destination;
-
-
     protected Handler handler = new Handler();
-    protected static float startX;
-    protected static float startY;
-    protected static float ratio;
+
+    Map<Rect, Object> bitmapClickable = new HashMap<>();
+
     /**
      * define weather or not a click on a transparent pixel trigger item click
      */
     private boolean allowTransparent = true;
 
-    public void setScaleToBackground(boolean scaleToBackground) {
-        this.scaleToBackground = scaleToBackground;
-    }
-
-    public void setAllowTransparent(boolean allowTransparent) {
-        this.allowTransparent = allowTransparent;
-    }
-
     /**
      * define weather or not zone bitmap scale to background image
      */
     private boolean scaleToBackground = true;
-
-    public void setAdapter(MapAdapter adapter) {
-        this.adapter = adapter;
-        adapter.listener = new AdapterListener() {
-            @Override
-            public void notifyDataSetHasChanged() {
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        ImageMapView.this.invalidate();
-                    }
-                });
-            }
-        };
-    }
 
     public ImageMapView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -134,13 +113,17 @@ public class ImageMapView extends View {
      */
     public static boolean doesIntersect(int x, int y, Rect rect) {
         if (rect != null) {
-            int right = rect.right;
-            int top = rect.top;
-            int bottom = rect.bottom;
-            int left = rect.left;
-            return !(x < left || x > right || y < top || y > bottom);
+            return !(x < rect.left || x > rect.right || y < rect.top || y > rect.bottom);
         }
         return false;
+    }
+
+    public void setScaleToBackground(boolean scaleToBackground) {
+        this.scaleToBackground = scaleToBackground;
+    }
+
+    public void setAllowTransparent(boolean allowTransparent) {
+        this.allowTransparent = allowTransparent;
     }
 
     @Override
@@ -149,7 +132,6 @@ public class ImageMapView extends View {
         this.HEIGHT = h;
         if (background != null) {
             destination = getDestinationRect(background, w, h);
-            Log.e(TAG, "onSizeChanged: ratio "+ratio +" startX "+startX+" start y "+startY);
         }
         super.onSizeChanged(w, h, oldw, oldh);
     }
@@ -164,15 +146,13 @@ public class ImageMapView extends View {
         addAllPins(canvas);
     }
 
-
-
     /**
      * Display all pins at their respective position onto a canvas
      *
      * @param canvas Canvas to draw on to
      */
     protected void addAllPins(Canvas canvas) {
-        if (adapter!=null){
+        if (adapter != null) {
             for (int i = 0; i < adapter.getCount(); i++) {
                 Object item = adapter.getItemAtPosition(i);
                 PointF location = getLocation(item);
@@ -180,19 +160,19 @@ public class ImageMapView extends View {
                 Bitmap bitmap = adapter.getItemBitmap(item);
                 if (bitmap != null) {
 
-                    int bitmapWidth =Math.round( bitmap.getWidth() /(scaleToBackground?ratio:1));
-                    int bitmapHeight = Math.round(bitmap.getHeight()/(scaleToBackground?ratio:1));
-                    int roundx = Math.round(location.x - (bitmapWidth / 2));
-                    int roundy = Math.round(location.y - (bitmapHeight / 2));
+                    int bitmapWidth = Math.round(bitmap.getWidth() / (scaleToBackground ? ratio : 1));
+                    int bitmapHeight = Math.round(bitmap.getHeight() / (scaleToBackground ? ratio : 1));
+                    int roundX = Math.round(location.x - (bitmapWidth / 2));
+                    int roundY = Math.round(location.y - (bitmapHeight / 2));
 
                     Rect destinationRect = new Rect(
-                            roundx,
-                            roundy,
-                            roundx + bitmapWidth,
-                            roundy + bitmapHeight);
+                            roundX,
+                            roundY,
+                            roundX + bitmapWidth,
+                            roundY + bitmapHeight);
 
 
-                    Rect sourceRect = new Rect(0,0,bitmap.getWidth(),bitmap.getHeight());
+                    Rect sourceRect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
 
                     canvas.drawBitmap(
                             bitmap,
@@ -205,6 +185,12 @@ public class ImageMapView extends View {
         }
     }
 
+    /**
+     * Return the location of an item, scalled with the background image
+     *
+     * @param item
+     * @return
+     */
     protected PointF getLocation(Object item) {
         float x = adapter.getItemLocation(item).x;
         float y = adapter.getItemLocation(item).y;
@@ -216,15 +202,14 @@ public class ImageMapView extends View {
         if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
             int x = Math.round(motionEvent.getX());
             int y = Math.round(motionEvent.getY());
-            Log.e(TAG, "onTouchEvent: x,y : "+((motionEvent.getX()-startX) /backgroundWidth)+"f,"+((motionEvent.getY()-startY)/backgroundHeight)+"f" );
             for (Rect rect : bitmapClickable.keySet()) {
                 if (doesIntersect(x, y, rect)) {
-                    if (adapter.itemClickListener!=null){
-                        if (allowTransparent){
+                    if (adapter.itemClickListener != null) {
+                        if (allowTransparent) {
                             adapter.itemClickListener.onMapItemClick(bitmapClickable.get(rect));
-                        }else {
+                        } else {
                             int pixel = getPixelClickedAt(x, y, rect, adapter.getItemBitmap(bitmapClickable.get(rect)));
-                            if (pixel!=0){
+                            if (pixel != 0) {
                                 adapter.itemClickListener.onMapItemClick(bitmapClickable.get(rect));
                             }
                         }
@@ -237,21 +222,20 @@ public class ImageMapView extends View {
     }
 
     /**
-     *
-     * @param x horizontal coordinate of taped location
-     * @param y vertical coordinate of taped location
-     * @param rect rectangle encapsulating clicked bitmap
+     * @param x      horizontal coordinate of taped location
+     * @param y      vertical coordinate of taped location
+     * @param rect   rectangle encapsulating clicked bitmap
      * @param bitmap blicked bitmap
      * @return the pixel
      */
     private int getPixelClickedAt(int x, int y, Rect rect, Bitmap bitmap) {
         try {
 
-            if (scaleToBackground){
-                return bitmap.getPixel(Math.round((x - rect.left)*ratio),Math.round((y - rect.top)*ratio));
+            if (scaleToBackground) {
+                return bitmap.getPixel(Math.round((x - rect.left) * ratio), Math.round((y - rect.top) * ratio));
             }
-            return bitmap.getPixel(x - rect.left,y - rect.top);
-        }catch (IllegalArgumentException i){
+            return bitmap.getPixel(x - rect.left, y - rect.top);
+        } catch (IllegalArgumentException i) {
             return 0;
         }
 
@@ -259,5 +243,20 @@ public class ImageMapView extends View {
 
     public MapAdapter getAdapter() {
         return adapter;
+    }
+
+    public void setAdapter(MapAdapter adapter) {
+        this.adapter = adapter;
+        adapter.listener = new AdapterListener() {
+            @Override
+            public void notifyDataSetHasChanged() {
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        ImageMapView.this.invalidate();
+                    }
+                });
+            }
+        };
     }
 }
