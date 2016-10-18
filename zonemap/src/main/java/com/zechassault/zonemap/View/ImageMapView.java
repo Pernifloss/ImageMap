@@ -77,29 +77,13 @@ public class ImageMapView extends View {
      * @return the rectangle that will contain the fitted bitmap
      */
     static Rect getDestinationRect(Bitmap bitmap, int canvasWidth, int canvasHeight) {
-        ratio = 0;
-        startX = 0;
-        startY = 0;
+        ratio = (float) bitmap.getHeight() / canvasHeight;
+        startX = canvasWidth / 2 - bitmap.getWidth() / ratio / 2;
+        startY = canvasHeight / 2 - bitmap.getHeight() / ratio / 2;
 
-        if (bitmap.getWidth() > canvasWidth || bitmap.getHeight() > canvasHeight) {
-            if (bitmap.getWidth() / canvasWidth > bitmap.getHeight() / canvasHeight) {
-                ratio = (float) bitmap.getWidth() / canvasWidth;
-                startY = canvasHeight / 2 - bitmap.getHeight() / ratio / 2;
-            } else {
-                ratio = (float) bitmap.getHeight() / canvasHeight;
-                startX = canvasWidth / 2 - bitmap.getWidth() / ratio / 2;
-            }
-        } else {
-            if (canvasWidth - bitmap.getWidth() < canvasHeight - bitmap.getHeight()) {
-                ratio = (float) bitmap.getHeight() / canvasHeight;
-                startY = canvasHeight / 2 - bitmap.getHeight() / ratio / 2;
-            } else {
-                ratio = (float) bitmap.getWidth() / canvasWidth; // shit
-                startX = (canvasWidth / 2) - ((bitmap.getWidth() / ratio) / 2);
-            }
-        }
         backgroundWidth = Math.round(bitmap.getWidth() / ratio);
         backgroundHeight = Math.round(bitmap.getHeight() / ratio);
+
         return new Rect(Math.round(startX), Math.round(startY), backgroundWidth + Math.round(startX), backgroundHeight + Math.round(startY));
     }
 

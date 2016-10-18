@@ -12,7 +12,9 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 
+import com.zechassault.zonemap.Adapter.MapAdapter;
 import com.zechassault.zonemap.Adapter.NoteImageAdapter;
+import com.zechassault.zonemap.Listener.AdapterListener;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -237,5 +239,4 @@ public class NoteImageView extends ImageMapView {
             return Float.compare(adapter.getItemLocation(first).y, adapter.getItemLocation(second).y);
         }
     }
-
 }

@@ -80,7 +80,7 @@ public class AnatomyActivity extends Activity implements ItemClickListener<Anato
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.e("AnatomyActivity", "onCreate: ");
+        Log.e("AnatomyTwoActivity", "onCreate: ");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 

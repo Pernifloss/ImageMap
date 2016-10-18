@@ -10,6 +10,7 @@
         android:theme="@style/AppTheme">
         <activity android:name="com.zechassault.cimi.imagemap.europe.EuropeActivity" />
         <activity android:name=".anatomy.AnatomyActivity" />
+        <activity android:name=".anatomie.anatomy.AnatomyTwoActivity" />
         <activity android:name=".operation.OperationActivity" />
 
         <activity android:name=".StartActivity">

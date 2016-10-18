@@ -5,8 +5,8 @@
         android:width="@dimen/clickableRoundSize"
         android:height="@dimen/clickableRoundSize" />
 
-    <solid android:color="@color/colorAccent" />
+    <solid android:color="@color/out" />
     <stroke
-        android:color="@color/colorAccent"
+        android:color="@color/out"
         android:width="3dp" />
 </shape>
