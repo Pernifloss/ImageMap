@@ -7,14 +7,10 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PointF;
 import android.graphics.Rect;
-import android.graphics.Typeface;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 
-import com.zechassault.zonemap.Adapter.MapAdapter;
 import com.zechassault.zonemap.Adapter.NoteImageAdapter;
-import com.zechassault.zonemap.Listener.AdapterListener;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -28,51 +24,17 @@ public class NoteImageView extends ImageMapView {
     public static final int TEXT_MARGIN_RIGHT = 20;
 
     Paint usingPaint;
-
+    Map<Rect, Object> labelClickable = new HashMap<>();
     private List<Object> left = new ArrayList<>();
-    private List<Object> right= new ArrayList<>();
+    private List<Object> right = new ArrayList<>();
     private NoteImageAdapter adapter;
     private Paint backgroundPaint;
-
-    Map<Rect, Object> labelClickable = new HashMap<>();
 
     public NoteImageView(Context context, AttributeSet attrs) {
         super(context, attrs);
         backgroundPaint = new Paint();
     }
 
-    /**
-     * define destination rectangle to fit center an image
-     *
-     * @param bitmap       the image to fit
-     * @param canvasWidth  the width of the rectangle in which the image will be fittted
-     * @param canvasHeight the height of the rectangle in which the image will be fittted
-     * @return the rectangle that will contain the fitted bitmap
-     */
-    static Rect getDestinationRect(Bitmap bitmap, int canvasWidth, int canvasHeight) {
-        float min = 0;
-        float startX = 0;
-        float startY = 0;
-
-        if (bitmap.getWidth() > canvasWidth || bitmap.getHeight() > canvasHeight) {
-            if (bitmap.getWidth() / canvasWidth > bitmap.getHeight() / canvasHeight) {
-                min = (float) bitmap.getWidth() / canvasWidth;
-                startY = canvasHeight / 2 - bitmap.getHeight() / min / 2;
-            } else {
-                min = (float) bitmap.getHeight() / canvasHeight;
-                startX = canvasWidth / 2 - bitmap.getWidth() / min / 2;
-            }
-        } else {
-            if (canvasWidth - bitmap.getWidth() < canvasHeight - bitmap.getHeight()) {
-                min = (float) bitmap.getWidth() / canvasWidth;
-                startY = canvasHeight / 2 - bitmap.getHeight() / min / 2;
-            } else {
-                min = (float) bitmap.getWidth() / canvasHeight;
-                startX = canvasWidth / 2 - bitmap.getHeight() / min / 2;
-            }
-        }
-        return new Rect(Math.round(startX), Math.round(startY), Math.round(bitmap.getWidth() / min) + Math.round(startX), Math.round(bitmap.getHeight() / min) + Math.round(startY));
-    }
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
@@ -98,8 +60,7 @@ public class NoteImageView extends ImageMapView {
         right = new ArrayList<>();
         for (int i = 0; i < adapter.getCount(); i++) {
             Object itemAtPosition = adapter.getItemAtPosition(i);
-            PointF point = adapter.getItemLocation(itemAtPosition);
-            if (point.x < 0.5f) {
+            if (adapter.isItemOnLeftSide(itemAtPosition)) {
                 left.add(itemAtPosition);
             } else {
                 right.add(itemAtPosition);
@@ -166,8 +127,8 @@ public class NoteImageView extends ImageMapView {
                     canvas.drawLine(
                             textWidth + TEXT_MARGIN_RIGHT,
                             positionY - (textHeight / 2),
-                            location.x + (itemWidth * adapter.getAnchor(item).x)-(itemWidth/2),
-                            location.y + (itemHeight * adapter.getAnchor(item).y)-(itemHeight/2) ,
+                            location.x + (itemWidth * adapter.getAnchor(item).x) - (itemWidth / 2),
+                            location.y + (itemHeight * adapter.getAnchor(item).y) - (itemHeight / 2),
                             adapter.getLinePaint(item));
                 }
             }
@@ -176,7 +137,7 @@ public class NoteImageView extends ImageMapView {
 
             height = HEIGHT / right.size();
             for (int i = 0; i < right.size(); i++) {
-                Object item =right.get(i);
+                Object item = right.get(i);
 
                 String itemText = adapter.getLabel(item);
                 Rect textBound = new Rect();
@@ -209,8 +170,8 @@ public class NoteImageView extends ImageMapView {
 
                     canvas.drawLine(WIDTH - textSize - TEXT_MARGIN_RIGHT,
                             5 + positionY + textSizeH / 2,
-                            location.x + (itemWidth * adapter.getAnchor(item).x)-(itemWidth/2),
-                            location.y + (itemHeight * adapter.getAnchor(item).y)-(itemHeight/2) ,
+                            location.x + (itemWidth * adapter.getAnchor(item).x) - (itemWidth / 2),
+                            location.y + (itemHeight * adapter.getAnchor(item).y) - (itemHeight / 2),
                             adapter.getLinePaint(item));
                 }
             }
@@ -224,8 +185,8 @@ public class NoteImageView extends ImageMapView {
             int y = Math.round(motionEvent.getY());
             for (Rect rect : labelClickable.keySet()) {
                 if (doesIntersect(x, y, rect)) {
-                    if (adapter.itemClickListener!=null){
-                            adapter.itemClickListener.onMapItemClick(labelClickable.get(rect));
+                    if (adapter.itemClickListener != null) {
+                        adapter.itemClickListener.onMapItemClick(labelClickable.get(rect));
                     }
                 }
             }
@@ -233,10 +194,10 @@ public class NoteImageView extends ImageMapView {
         return super.onTouchEvent(motionEvent);
     }
 
-    public class ItemYComparator implements java.util.Comparator<Object> {
-        @Override
-        public int compare(Object first, Object second) {
-            return Float.compare(adapter.getItemLocation(first).y, adapter.getItemLocation(second).y);
-        }
+public class ItemYComparator implements java.util.Comparator<Object> {
+    @Override
+    public int compare(Object first, Object second) {
+        return Float.compare(adapter.getItemLocation(first).y, adapter.getItemLocation(second).y);
     }
+}
 }

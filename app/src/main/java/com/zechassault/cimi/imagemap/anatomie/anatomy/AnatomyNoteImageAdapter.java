@@ -27,6 +27,7 @@ public class AnatomyNoteImageAdapter extends NoteImageAdapter<AnatomyTwoItem> {
     private Bitmap selectedBitmap;
     private Bitmap unselectedBitmap;
     private final Paint trainspaint;
+
     TYPE mode = TYPE.MUSCLE;
 
     public void selectedItem(AnatomyTwoItem item) {
@@ -148,6 +149,10 @@ public class AnatomyNoteImageAdapter extends NoteImageAdapter<AnatomyTwoItem> {
         notifyDataSetHasChanged();
     }
 
+    @Override
+    public boolean isItemOnLeftSide(AnatomyTwoItem item) {
+        return true;
+    }
 /*
     @Override
     public PointF getAnchor(AnatomyTwoItem item) {

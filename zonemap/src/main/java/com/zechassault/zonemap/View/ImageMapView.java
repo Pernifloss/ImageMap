@@ -76,7 +76,7 @@ public class ImageMapView extends View {
      * @param canvasHeight the height of the rectangle in which the image will be fitted
      * @return the rectangle that will contain the fitted bitmap
      */
-    static Rect getDestinationRect(Bitmap bitmap, int canvasWidth, int canvasHeight) {
+    protected Rect getDestinationRect(Bitmap bitmap, int canvasWidth, int canvasHeight) {
         ratio = (float) bitmap.getHeight() / canvasHeight;
         startX = canvasWidth / 2 - bitmap.getWidth() / ratio / 2;
         startY = canvasHeight / 2 - bitmap.getHeight() / ratio / 2;

@@ -2,7 +2,7 @@
 <resources>
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
-    <dimen name="clickableRoundSize">20dp</dimen>
-    <dimen name="roundSize">25dp</dimen>
+    <dimen name="clickableRoundSize">35dp</dimen>
+    <dimen name="roundSize">35dp</dimen>
     <dimen name="textSize">20dp</dimen>
 </resources>
