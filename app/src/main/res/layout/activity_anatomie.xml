@@ -26,7 +26,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/front"
-            android:src="@drawable/front" />
+            android:src="@drawable/aaaa" />
 
         <com.zechassault.zonemap.View.NoteImageView
             android:layout_width="match_parent"

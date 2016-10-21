@@ -1,7 +1,6 @@
 package com.zechassault.zonemap.View;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -16,7 +15,6 @@ import android.view.View;
 
 import com.zechassault.zonemap.Adapter.MapAdapter;
 import com.zechassault.zonemap.Listener.AdapterListener;
-import com.zechassault.zonemap.R;
 import com.zechassault.zonemap.Util.BitmapUtils;
 
 import java.util.HashMap;
@@ -55,14 +53,12 @@ public class ImageMapView extends View {
 
     public ImageMapView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        TypedArray typedArray = context.obtainStyledAttributes(attrs,
-                R.styleable.com_zechassault_zonemap_ImageMapView, 0, 0);
         try {
             int src_resource = attrs.getAttributeResourceValue("http://schemas.android.com/apk/res/android", "src", 0);
 
-            background = BitmapUtils.resAsBitmap(getContext(), src_resource);
-        } finally {
-            typedArray.recycle();
+            background = BitmapUtils.resAsBitmap(getContext(), getResources().getDrawable(src_resource));
+        } catch (Exception e) {
+            Log.i("ImageMapView", "src not defined in xml ! " + e.getMessage());
         }
 
         paint = new Paint();

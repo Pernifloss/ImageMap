@@ -91,12 +91,12 @@ public class AnatomyTwoActivity extends Activity implements ItemClickListener<An
         toggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked){
+                if (isChecked) {
 
                     adapterFront.setMode(JOINT);
-                            adapterback.setMode(JOINT);
+                    adapterback.setMode(JOINT);
                     adapterProfile.setMode(JOINT);
-                }else {
+                } else {
 
                     adapterFront.setMode(MUSCLE);
                     adapterback.setMode(MUSCLE);
