@@ -8,7 +8,7 @@ import android.graphics.drawable.Drawable;
 public class BitmapUtils {
 
 
-    public static Bitmap resAsBitmap(Context context, Drawable drawable) {
+    public static Bitmap resAsBitmap( Drawable drawable) {
         return convertToBitmap(drawable, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
     }
 
@@ -18,5 +18,11 @@ public class BitmapUtils {
         drawable.setBounds(0, 0, widthPixels, heightPixels);
         drawable.draw(canvas);
         return mutableBitmap;
+    }
+
+    public static Bitmap getEmptyBitmap() {
+
+        Bitmap.Config conf = Bitmap.Config.ARGB_8888;
+        return Bitmap.createBitmap(1, 1, conf);
     }
 }

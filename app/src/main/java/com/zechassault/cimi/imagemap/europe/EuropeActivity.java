@@ -1,8 +1,11 @@
 package com.zechassault.cimi.imagemap.europe;
 
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.PointF;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
+import android.widget.Toast;
 
 import com.zechassault.cimi.imagemap.R;
 import com.zechassault.cimi.imagemap.anatomy.AnatomyItem;
@@ -20,21 +23,22 @@ public class EuropeActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_europe);
 
+        Toast.makeText(getApplicationContext(),"Under Construction, don't judge me \uD83D\uDE1E ",Toast.LENGTH_SHORT).show();
 
         Set<AnatomyItem> points = new HashSet<>();
 
-
         NoteImageView imageMapView = (NoteImageView) findViewById(R.id.imageMapView);
         Set<Country> countries = new HashSet<>();
+        Context context = getApplicationContext();
         countries.add(new Country("France",
-                BitmapUtils.resAsBitmap(getApplicationContext(), R.drawable.france_s),
-                BitmapUtils.resAsBitmap(getApplicationContext(), R.drawable.france),
+                BitmapUtils.resAsBitmap(ContextCompat.getDrawable(context, R.drawable.france_s)),
+                BitmapUtils.resAsBitmap(ContextCompat.getDrawable(context, R.drawable.france)),
                 0.313f,
                 0.528f
         ));
         Country italia = new Country("Italia",
-                BitmapUtils.resAsBitmap(getApplicationContext(), R.drawable.italia_s),
-                BitmapUtils.resAsBitmap(getApplicationContext(), R.drawable.italia),
+                BitmapUtils.resAsBitmap(ContextCompat.getDrawable(context, R.drawable.italia_s)),
+                BitmapUtils.resAsBitmap(ContextCompat.getDrawable(context, R.drawable.italia)),
                 0.73f,
                 0.695f
         );
@@ -42,29 +46,29 @@ public class EuropeActivity extends Activity {
         countries.add(italia);
 
         countries.add(new Country("United Kingdom",
-                BitmapUtils.resAsBitmap(getApplicationContext(), R.drawable.uk_s),
-                BitmapUtils.resAsBitmap(getApplicationContext(), R.drawable.uk),
+                BitmapUtils.resAsBitmap(ContextCompat.getDrawable(context, R.drawable.uk_s)),
+                BitmapUtils.resAsBitmap(ContextCompat.getDrawable(context, R.drawable.uk)),
                 0.085f,
                 0.281f
         ));
 
         countries.add(new Country("Switzerland",
-                BitmapUtils.resAsBitmap(getApplicationContext(), R.drawable.switzerland_s),
-                BitmapUtils.resAsBitmap(getApplicationContext(), R.drawable.switzerland),
+                BitmapUtils.resAsBitmap(ContextCompat.getDrawable(context, R.drawable.switzerland_s)),
+                BitmapUtils.resAsBitmap(ContextCompat.getDrawable(context, R.drawable.switzerland)),
                 0.549f,
                 0.506f
         ));
 
 
         countries.add(new Country("Germany",
-                BitmapUtils.resAsBitmap(getApplicationContext(), R.drawable.germany_s),
-                BitmapUtils.resAsBitmap(getApplicationContext(), R.drawable.germany),
+                BitmapUtils.resAsBitmap(ContextCompat.getDrawable(context, R.drawable.germany_s)),
+                BitmapUtils.resAsBitmap(ContextCompat.getDrawable(context, R.drawable.germany)),
                 0.684f ,
                 0.343f
         ));
       countries.add(new Country("Luxembourg",
-                BitmapUtils.resAsBitmap(getApplicationContext(), R.drawable.luxembourg_s),
-                BitmapUtils.resAsBitmap(getApplicationContext(), R.drawable.luxembourg),
+                BitmapUtils.resAsBitmap(ContextCompat.getDrawable(context, R.drawable.luxembourg_s)),
+                BitmapUtils.resAsBitmap(ContextCompat.getDrawable(context, R.drawable.luxembourg)),
               0.42987353f,
               0.39199176f
         ));

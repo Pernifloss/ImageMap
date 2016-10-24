@@ -8,9 +8,6 @@ import com.zechassault.cimi.imagemap.R;
 
 import java.util.HashMap;
 
-/**
- * Created by Lar on 15/09/2016.
- */
 public class SoundPoolPlayer {
     private SoundPool mShortPlayer = null;
     private HashMap mSounds = new HashMap();

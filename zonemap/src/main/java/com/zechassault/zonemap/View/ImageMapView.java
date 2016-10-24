@@ -23,40 +23,92 @@ import java.util.Map;
 
 public class ImageMapView extends View {
 
-
-    protected static float startX;
-    protected static float startY;
-    protected static float ratio;
-
-    private static int backgroundWidth;
-    private static int backgroundHeight;
-
+    /**
+     * Main image bitmap
+     */
     protected Bitmap background;
-    protected int WIDTH;
-    protected int HEIGHT;
-    protected MapAdapter adapter;
-    protected Paint paint;
-    protected Rect destination;
-    protected Handler handler = new Handler();
-
-    Map<Rect, Object> bitmapClickable = new HashMap<>();
 
     /**
-     * define weather or not a click on a transparent pixel trigger item click
+     * Padding between start of canvas and start of main image
+     */
+    protected static float startX;
+
+    /**
+     * Padding between top of canvas and top of main image
+     */
+    protected static float startY;
+
+    /**
+     * Image to canvas ratio
+     */
+    protected static float ratio;
+
+    /**
+     * Main image width scaled inside the canvas (fit center)
+     */
+    private static int backgroundWidth;
+
+    /**
+     * Main image height scaled inside the canvas (fit center)
+     */
+    private static int backgroundHeight;
+
+    /**
+     * View width
+     */
+    protected int WIDTH;
+    /**
+     * View height
+     */
+    protected int HEIGHT;
+
+    /**
+     * Adapter to populate the map with items
+     */
+    protected MapAdapter adapter;
+
+    /**
+     * Paint used to draw bitmaps
+     */
+    protected Paint paint;
+
+    /**
+     * Zone of canvas designated for the main image
+     */
+    protected Rect destination;
+
+    /**
+     * Android Ui thread andler
+     */
+    protected Handler handler = new Handler();
+
+    /**
+     * Collection of clickable rectangle that contain item bitmap
+     */
+    protected Map<Rect, Object> bitmapClickable = new HashMap<>();
+
+    /**
+     * Define weather or not a click on a transparent pixel trigger item click
      */
     private boolean allowTransparent = true;
 
-    /**
-     * define weather or not zone bitmap scale to background image
-     */
-    private boolean scaleToBackground = true;
 
+    /**
+     * Define weather or not zone bitmap scale to background image
+     */
+    protected boolean scaleToBackground = true;
+
+    /**
+     * ImageMapView extending android.view.View
+     * @param context android context
+     * @param attrs xml AttributeSet
+     */
     public ImageMapView(Context context, AttributeSet attrs) {
         super(context, attrs);
         try {
             int src_resource = attrs.getAttributeResourceValue("http://schemas.android.com/apk/res/android", "src", 0);
 
-            background = BitmapUtils.resAsBitmap(getContext(), getResources().getDrawable(src_resource));
+            background = BitmapUtils.resAsBitmap(getResources().getDrawable(src_resource));
         } catch (Exception e) {
             Log.i("ImageMapView", "src not defined in xml ! " + e.getMessage());
         }
@@ -98,13 +150,6 @@ public class ImageMapView extends View {
         return false;
     }
 
-    public void setScaleToBackground(boolean scaleToBackground) {
-        this.scaleToBackground = scaleToBackground;
-    }
-
-    public void setAllowTransparent(boolean allowTransparent) {
-        this.allowTransparent = allowTransparent;
-    }
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
@@ -166,17 +211,24 @@ public class ImageMapView extends View {
     }
 
     /**
-     * Return the location of an item, scalled with the background image
+     * Return the location of an item, scaled with the background image
      *
-     * @param item
-     * @return
+     * @param item the item to place on the image map
+     * @return PointF coordinate of item
      */
     protected PointF getLocation(Object item) {
-        float x = adapter.getItemLocation(item).x;
-        float y = adapter.getItemLocation(item).y;
+        PointF itemLocation = adapter.getItemCoordinates(item);
+        float x = itemLocation.x;
+        float y = itemLocation.y;
         return new PointF(startX + (backgroundWidth * x), startY + (backgroundHeight * y));
     }
 
+    /**
+     * Intercept touch event and determine whether or not it on an item bitmap
+     *
+     * @param motionEvent
+     * @return
+     */
     @Override
     public boolean onTouchEvent(MotionEvent motionEvent) {
         if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
@@ -202,10 +254,12 @@ public class ImageMapView extends View {
     }
 
     /**
+     * Retrieve a specific pixel
+     *
      * @param x      horizontal coordinate of taped location
      * @param y      vertical coordinate of taped location
      * @param rect   rectangle encapsulating clicked bitmap
-     * @param bitmap blicked bitmap
+     * @param bitmap clicked bitmap
      * @return the pixel
      */
     private int getPixelClickedAt(int x, int y, Rect rect, Bitmap bitmap) {
@@ -221,10 +275,11 @@ public class ImageMapView extends View {
 
     }
 
-    public MapAdapter getAdapter() {
-        return adapter;
-    }
-
+    /**
+     * Set view adapter that populate map with items
+     *
+     * @param adapter item adapter
+     */
     public void setAdapter(MapAdapter adapter) {
         this.adapter = adapter;
         adapter.listener = new AdapterListener() {
@@ -238,5 +293,26 @@ public class ImageMapView extends View {
                 });
             }
         };
+    }
+
+    /**
+     * @return current Map adapter
+     */
+    public MapAdapter getAdapter() {
+        return adapter;
+    }
+
+    /**
+     * @param allowTransparent the value to set to allowTransparent
+     */
+    public void setAllowTransparent(boolean allowTransparent) {
+        this.allowTransparent = allowTransparent;
+    }
+
+    /**
+     * @param scaleToBackground the new value scaleToBackground
+     */
+    public void setScaleToBackground(boolean scaleToBackground) {
+        this.scaleToBackground = scaleToBackground;
     }
 }

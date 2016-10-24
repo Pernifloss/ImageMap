@@ -7,19 +7,23 @@ import com.zechassault.zonemap.Listener.AdapterListener;
 import com.zechassault.zonemap.Listener.ItemClickListener;
 
 public abstract class MapAdapter<T> {
+
     /**
-     * listener used to communicate from adapter to view
+     * Listener used to communicate from adapter to view
      */
     public AdapterListener listener;
-
-    public void setItemClickListener(ItemClickListener<T> itemClickListener) {
-        this.itemClickListener = itemClickListener;
-    }
 
     /**
      * The listener of item click on map
      */
     public ItemClickListener<T> itemClickListener;
+
+    /**
+     * @param itemClickListener to set as new listener for item click
+     */
+    public void setItemClickListener(ItemClickListener<T> itemClickListener) {
+        this.itemClickListener = itemClickListener;
+    }
 
     /**
      * Define this function to target where the item is positioned on the image
@@ -29,7 +33,7 @@ public abstract class MapAdapter<T> {
      * x is ratio of image width (e. x = 0.5f  item is centered horizontally)
      * y is ratio of image height (e. y =  1f  item will be at bottom)
      */
-    public abstract PointF getItemLocation(T item);
+    public abstract PointF getItemCoordinates(T item);
 
     /**
      * Define this function to indicate which item the given position correspond to

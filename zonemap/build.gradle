@@ -1,6 +1,6 @@
 apply plugin: 'com.android.library'
-
-version = "0.0.1"
+apply plugin: 'com.jfrog.bintray'
+apply plugin: 'com.github.dcendents.android-maven'
 android {
     compileSdkVersion 24
     buildToolsVersion "24.0.3"
@@ -22,6 +22,7 @@ android {
     }
 }
 dependencies {
+
     compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
@@ -30,31 +31,45 @@ dependencies {
 
     testCompile 'junit:junit:4.12'
 }
-ext {
-    userOrg = 'zechassault'
-    bintrayRepo = 'maven'
-    bintrayName = 'imagemap'
 
-    publishedGroupId = 'com.zechassault.zonemap'
-    libraryName = 'ImageMap'
-    artifact = 'imagemap'
+group = 'com.zechassault.zonemap'
+version = '0.1.0'
 
-    libraryDescription = 'A visual library to define clickable zone on top of an image on Android'
+task generateSourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier 'sources'
+}
 
-    siteUrl = 'https://github.com/lary-pipot/ImageMap'
-    gitUrl = 'https://github.com/lary-pipot/ImageMap.git'
+task generateJavaDocs(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath()
+            .join(File.pathSeparator))
+}
 
-    libraryVersion = '0.0.1'
+task generateJavaDocsJar(type: Jar) {
+    from generateJavaDocs.destinationDir
+    classifier 'javadoc'
+}
+generateJavaDocsJar.dependsOn generateJavaDocs
 
-    developerId = 'zech'
-    developerName = 'Zack Ciminera'
-    developerEmail = 'pernifloss@gmail.com'
+bintray {
+    pkg {
+        repo = 'maven'
+        name = 'imagemap'
+        userOrg  = 'zechassault'
+        version {
+            name = '0.1.0-zone'
+            desc = '0.1.0'
+            vcsTag = '0.1.0'
+        }
 
-    licenseName = 'The MIT License (MIT)'
-    licenseUrl = 'https://opensource.org/licenses/MIT'
-    allLicenses = ["MIT"]
-
-    apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
-    apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle'
-
+        licenses = ['MIT']
+        vcsUrl = 'https://github.com/lary-pipot/ImageMap.git'
+        websiteUrl = 'https://github.com/lary-pipot/ImageMap'
+    }
+    configurations = ['archives']
+}
+artifacts {
+    archives generateJavaDocsJar
+    archives generateSourcesJar
 }

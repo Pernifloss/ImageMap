@@ -1,6 +1,5 @@
 package com.zechassault.cimi.imagemap.operation;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.PointF;
 
@@ -10,38 +9,40 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Very simple implementation of MapAdapter
+ */
 public class BoneAdapter extends MapAdapter<BoneItem> {
+    // the list of ous item to display
     private final List<BoneItem> items;
-    private final Context context;
-    private Set<BoneItem> selectedItems = new HashSet<>();
 
-    public void selectedItem(BoneItem item, boolean isSelected) {
-        if (isSelected) {
-            selectedItems.add(item);
-        } else {
-            selectedItems.remove(item);
-        }
-        notifyDataSetHasChanged();
-    }
+    // list of picked item
+    private Set<BoneItem> pickedItem = new HashSet<>();
 
 
-
-    public BoneAdapter(List<BoneItem> items, Context context) {
-        this.context = context;
+    public BoneAdapter(List<BoneItem> items) {
         this.items = items;
-
     }
 
+    /*
+     Tell adapter how to get item coordinate
+     */
     @Override
-    public PointF getItemLocation(BoneItem item) {
-        return new PointF(item.x,item.y);
+    public PointF getItemCoordinates(BoneItem item) {
+        return new PointF(item.x, item.y);
     }
 
+    /*
+    Tell adapter how to retrieve an item based on its position
+    */
     @Override
     public BoneItem getItemAtPosition(int position) {
         return items.get(position);
     }
 
+    /*
+    Tell adapter how many item in total we have
+    */
     @Override
     public int getCount() {
         return items.size();
@@ -50,10 +51,22 @@ public class BoneAdapter extends MapAdapter<BoneItem> {
 
     @Override
     public Bitmap getItemBitmap(BoneItem item) {
-        if (selectedItems.contains(item)){
+        if (pickedItem.contains(item)) {
+            // if the item is already picked it will item appear as hole without bone
             return item.bitmapEmpty;
         }
+        // The bitmap of the item with the bone
         return item.bitmap;
     }
 
+    /**
+     * Pick an item
+     * @param item BoneItem to pick
+     */
+    public void pickItem(BoneItem item) {
+        //update the list of picked items
+        pickedItem.add(item);
+        //Refresh the view
+        notifyDataSetHasChanged();
+    }
 }

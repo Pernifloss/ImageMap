@@ -62,7 +62,7 @@ public abstract class NoteImageAdapter<T> extends MapAdapter<T> {
      * @return boolean true, item will be on the left
      */
     public boolean isItemOnLeftSide(T item) {
-        return this.getItemLocation(item).x < 0.5f;
+        return this.getItemCoordinates(item).x < 0.5f;
     }
 
 }

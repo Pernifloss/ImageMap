@@ -16,7 +16,6 @@ public class CountryAdapter extends NoteImageAdapter<Country> {
     private final List<Country> countries = new ArrayList<>();
     private Set<Country> selected = new HashSet<>();
 
-    private PointF centerAnchor = new PointF(0.5f, 0.5f);
 
     public CountryAdapter(Set<Country> countries, Context applicationContext) {
         this.countries.addAll(countries);
@@ -40,7 +39,7 @@ public class CountryAdapter extends NoteImageAdapter<Country> {
     }
 
     @Override
-    public PointF getItemLocation(Country item) {
+    public PointF getItemCoordinates(Country item) {
         return item.location;
     }
 
