@@ -99,5 +99,31 @@ You can customize labels, you can tell where the label is linked to the item ima
         return centerAnchor;
     }
 ```
-You can also define the Paint used for writing text or dawing lines. There is a way of telling on wich side you want a label to appear.
+By overiting the right method can also define the Paint used for writing text, so you can change color, style and font of labels. the same apply for line.
 
+```Java
+
+    /**
+     * Override this function to define your own Paint for label drawing
+     *
+     * @param item the item to which the legend is linked
+     * @return the labelPaint of to draw the label
+     */
+    public Paint getLabelPaint(T item) {
+        return labelPaint;
+    }
+
+    /**
+     * Override this function to define your own Paint for lines
+     *
+     * @param item the item to which the legend is linked
+     * @return the labelPaint of to draw the label
+     */
+    public Paint getLinePaint(T item) {
+        return linePaint;
+    }
+    
+```
+There is a way of telling on wich side you want a label to appear. 
+
+Please not that this library is still in development, and i will be glad to correct bugs and add new features!
