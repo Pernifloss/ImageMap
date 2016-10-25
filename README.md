@@ -1,8 +1,8 @@
 # ImageMap 
 
-Simple Android library to display bitmap on top of an Image
+Simple Android library to display bitmap on top of an Image. 
 
-You can get it on this repo
+For now, you can get it on this repo
 ```groovy
 repositories {
         maven {
@@ -10,19 +10,30 @@ repositories {
         }
    }
 ```
-and add it as a dependency with 
+And add it as a dependency with 
 ```groovy
 
     compile 'com.zechassault.zonemap:zonemap:0.1.0'
     
 ```
-This libray deliver two views, first the simple ImageMapView, it allow you to place items on an image and define where they are positioned and wich bitmap is drawn at this position. (a little bit like a map with marker but way simpler to use)
+This library deliver two views, first the simple ImageMapView, it allow you to place items on an image and define where they are positioned and wich bitmap is drawn at this position. (a little bit like a map with marker but way simpler to use)
 
 Here is a little demo of the simple ImageMapView : 
 
 ![alt text](https://github.com/lary-pipot/ImageMap/blob/master/operation.gif)
 
-How it work? really simply, based on ListView adapter, you just have to define your adapter that extends MapAdapter !
+How it work? really simply
+
+First define view on xml use src attribute to define the main image: 
+
+```xml
+<com.zechassault.zonemap.View.ImageMapView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/my_image" />
+
+```
+You just have to define your adapter that extends MapAdapter !
 
 An then you define specidied method :
 ```Java
@@ -62,10 +73,31 @@ An then you define specidied method :
 
 ```
 
-You can then interact with them by defining your itemClickListener
+You can then interact with items by setting the itemClickListener of you addapter.
 
 If you want an exemple feel free to clone the project, it has a demo app that display an ImageViewMap.
 
-The other view is called NoteImageView, it's like ImgeView map, but you also have label diplayer on both side on the image, that are liken to the items. Like the following
+
+The other view is called NoteImageView, it's like ImgeView map, but you also have labels diplayed on both side on the image, they are liken to the items. Like the following :
 
 ![alt text](https://github.com/lary-pipot/ImageMap/blob/master/europe.gif)
+
+Label click are also considered as click on specified item !
+
+You can customize labels, you can tell where the label is linked to the item image.By default it's linked to the center.
+
+```Java
+ 
+    private PointF centerAnchor = new PointF(0.5f, 0.5f);
+     /**
+     * Override this method to change the anchor calculation based on the bitmap
+     * PointF(0.0f,0.5f) will anchor the line to the center left of the bitmap
+     * @param item the item to define the anchor
+     * @return anchor as PointF
+     */
+    public PointF getAnchor(T item) {
+        return centerAnchor;
+    }
+```
+You can also define the Paint used for writing text or dawing lines. There is a way of telling on wich side you want a label to appear.
+
