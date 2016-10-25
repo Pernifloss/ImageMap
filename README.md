@@ -19,6 +19,7 @@ and add it as a dependency with
 This libray contain deviver two view, first the simple ImageMapView, it allow to place item on a map and define where they are positioned and wich bitmap is drawn at this position
 
 Here is a little demo of the simple ImageMapView : 
+
 ![alt text](https://github.com/lary-pipot/ImageMap/blob/master/operation.gif)
 
 How it work? really simplyn based on ListView adapter, you just have to define your adapter that extends MapAdapter !
