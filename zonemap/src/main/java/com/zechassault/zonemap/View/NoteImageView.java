@@ -198,8 +198,8 @@ public class NoteImageView extends ImageMapView {
                     if (itemBitmap == null) {
                         itemBitmap = BitmapUtils.getEmptyBitmap();
                     }
-                    float itemHeight = itemBitmap.getHeight() / ratio;
-                    float itemWidth = itemBitmap.getWidth() / ratio;
+                    float itemHeight = itemBitmap.getHeight() / (scaleToBackground ? ratio : 1);
+                    float itemWidth = itemBitmap.getWidth() / (scaleToBackground ? ratio : 1);
 
                     PointF anchor = adapter.getAnchor(item);
                     canvas.drawLine(WIDTH - textSize - TEXT_MARGIN,
