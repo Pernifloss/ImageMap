@@ -18,7 +18,7 @@ And add it as a dependency with
 ```
 This library deliver two views, first the simple ImageMapView, it allow you to place items on an image and define where they are positioned and wich bitmap is drawn at this position. (a little bit like a map with marker but way simpler to use)
 
-Here is a little demo of the simple ImageMapView : 
+Here is a little demo of the simple ImageMapView, in this demo the user have to tap on the item which is asked on top : 
 
 ![alt text](https://github.com/lary-pipot/ImageMap/blob/master/operation.gif)
 
