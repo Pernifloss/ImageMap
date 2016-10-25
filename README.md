@@ -16,13 +16,13 @@ and add it as a dependency with
     compile 'com.zechassault.zonemap:zonemap:0.1.0'
     
 ```
-This libray contain deviver two view, first the simple ImageMapView, it allow to place item on a map and define where they are positioned and wich bitmap is drawn at this position
+This libray deliver two views, first the simple ImageMapView, it allow you to place items on an image and define where they are positioned and wich bitmap is drawn at this position. (a little bit like a map with marker but way simpler to use)
 
 Here is a little demo of the simple ImageMapView : 
 
 ![alt text](https://github.com/lary-pipot/ImageMap/blob/master/operation.gif)
 
-How it work? really simplyn based on ListView adapter, you just have to define your adapter that extends MapAdapter !
+How it work? really simply, based on ListView adapter, you just have to define your adapter that extends MapAdapter !
 
 An then you define specidied method :
 ```Java
@@ -61,3 +61,7 @@ An then you define specidied method :
     public abstract Bitmap getItemBitmap(T item);
 
 ```
+
+You can then interact with them by defining your itemClickListener
+
+
