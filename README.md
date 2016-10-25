@@ -1,6 +1,6 @@
 # ImageMap 
 
-Simple Android library to display bitmap on top of an Image. 
+Simple Android library to display bitmaps on top of an Image. 
 
 For now, you can get it on this repo
 ```groovy
@@ -84,7 +84,7 @@ The other view is called NoteImageView, it's like ImgeView map, but you also hav
 
 Label click are also considered as click on specified item !
 
-You can customize labels, you can tell where the label is linked to the item image.By default it's linked to the center.
+You can customize labels, you can tell where the label is linked to the item image. By default it's linked to the center.
 
 ```Java
  
@@ -126,4 +126,6 @@ By overiting the right method can also define the Paint used for writing text, s
 ```
 There is a way of telling on wich side you want a label to appear. 
 
-Please not that this library is still in development, and i will be glad to correct bugs and add new features!
+Please note that this library is still in development, and i will be glad to correct bugs and add new features!
+
+We made the choice to manipulate bitmap and paint for maximum flexibulity and customisation, but don't worry the library come with a helper that convert drawable to bitmap.
