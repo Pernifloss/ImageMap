@@ -1,4 +1,4 @@
-package com.zechassault.zonemap.Adapter;
+package com.zechassault.zonemap.adapter;
 
 import android.content.res.Resources;
 import android.graphics.Paint;

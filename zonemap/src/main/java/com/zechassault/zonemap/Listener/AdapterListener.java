@@ -1,4 +1,4 @@
-package com.zechassault.zonemap.Listener;
+package com.zechassault.zonemap.listener;
 
 public interface AdapterListener {
 
