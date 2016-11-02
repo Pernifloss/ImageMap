@@ -67,7 +67,7 @@ bintray {
 
         licenses = ['MIT']
         vcsUrl = 'https://github.com/Pernifloss/ImageMap.git'
-        websiteUrl = 'https://github.com/lary-pipot/ImageMap'
+        websiteUrl = 'https://github.com/Pernifloss/ImageMap'
     }
     configurations = ['archives']
 }
