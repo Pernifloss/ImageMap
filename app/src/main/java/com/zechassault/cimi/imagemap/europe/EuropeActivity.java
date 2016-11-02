@@ -9,8 +9,8 @@ import android.widget.Toast;
 
 import com.zechassault.cimi.imagemap.R;
 import com.zechassault.cimi.imagemap.anatomy.AnatomyItem;
-import com.zechassault.zonemap.Util.BitmapUtils;
-import com.zechassault.zonemap.View.NoteImageView;
+import com.zechassault.zonemap.util.BitmapUtils;
+import com.zechassault.zonemap.view.NoteImageView;
 
 import java.util.HashSet;
 import java.util.Set;

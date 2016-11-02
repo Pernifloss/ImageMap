@@ -3,7 +3,7 @@ package com.zechassault.cimi.imagemap.operation;
 import android.graphics.Bitmap;
 import android.graphics.PointF;
 
-import com.zechassault.zonemap.Adapter.MapAdapter;
+import com.zechassault.zonemap.adapter.MapAdapter;
 
 import java.util.HashSet;
 import java.util.List;

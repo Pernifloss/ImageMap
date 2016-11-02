@@ -4,8 +4,8 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.PointF;
 
-import com.zechassault.zonemap.Adapter.NoteImageAdapter;
-import com.zechassault.zonemap.Listener.ItemClickListener;
+import com.zechassault.zonemap.adapter.NoteImageAdapter;
+import com.zechassault.zonemap.listener.ItemClickListener;
 
 import java.util.ArrayList;
 import java.util.HashSet;

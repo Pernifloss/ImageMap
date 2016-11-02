@@ -10,8 +10,8 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.zechassault.cimi.imagemap.R;
-import com.zechassault.zonemap.Util.BitmapUtils;
-import com.zechassault.zonemap.View.NoteImageView;
+import com.zechassault.zonemap.util.BitmapUtils;
+import com.zechassault.zonemap.view.NoteImageView;
 
 import java.util.ArrayList;
 import java.util.List;

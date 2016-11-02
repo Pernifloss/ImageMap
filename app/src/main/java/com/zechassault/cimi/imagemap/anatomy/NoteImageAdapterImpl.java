@@ -8,8 +8,8 @@ import android.graphics.PointF;
 import android.support.v4.content.ContextCompat;
 
 import com.zechassault.cimi.imagemap.R;
-import com.zechassault.zonemap.Adapter.NoteImageAdapter;
-import com.zechassault.zonemap.Listener.ItemClickListener;
+import com.zechassault.zonemap.adapter.NoteImageAdapter;
+import com.zechassault.zonemap.listener.ItemClickListener;
 
 import java.util.HashSet;
 import java.util.List;

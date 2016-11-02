@@ -1,6 +1,5 @@
-package com.zechassault.zonemap.Util;
+package com.zechassault.zonemap.util;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;

@@ -33,7 +33,7 @@ dependencies {
 }
 
 group = 'com.zechassault.zonemap'
-version = '0.1.1'
+version = '0.2.0'
 
 task generateSourcesJar(type: Jar) {
     from android.sourceSets.main.java.srcDirs
@@ -60,13 +60,13 @@ bintray {
         name = 'imagemap'
         userOrg  = 'zechassault'
         version {
-            name = '0.1.1-zone'
-            desc = '0.1.1'
-            vcsTag = '0.1.1'
+            name = '0.2.0-zone'
+            desc = '0.2.0'
+            vcsTag = '0.2.0'
         }
 
         licenses = ['MIT']
-        vcsUrl = 'https://github.com/lary-pipot/ImageMap.git'
+        vcsUrl = 'https://github.com/Pernifloss/ImageMap.git'
         websiteUrl = 'https://github.com/lary-pipot/ImageMap'
     }
     configurations = ['archives']

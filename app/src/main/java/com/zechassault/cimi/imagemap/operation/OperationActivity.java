@@ -7,9 +7,9 @@ import android.support.v4.content.ContextCompat;
 import android.widget.TextView;
 
 import com.zechassault.cimi.imagemap.R;
-import com.zechassault.zonemap.Listener.ItemClickListener;
-import com.zechassault.zonemap.Util.BitmapUtils;
-import com.zechassault.zonemap.View.ImageMapView;
+import com.zechassault.zonemap.listener.ItemClickListener;
+import com.zechassault.zonemap.util.BitmapUtils;
+import com.zechassault.zonemap.view.ImageMapView;
 
 import java.util.ArrayList;
 import java.util.List;

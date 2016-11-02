@@ -3,7 +3,7 @@ package com.zechassault.zonemap;
 import android.graphics.PointF;
 import android.graphics.Rect;
 
-import com.zechassault.zonemap.View.ImageMapView;
+import com.zechassault.zonemap.view.ImageMapView;
 
 import org.junit.Test;
 
