@@ -19,7 +19,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
 public class NoteImageView extends ImageMapView {
     /**
      * Margin in pixel between text and line
@@ -46,11 +45,9 @@ public class NoteImageView extends ImageMapView {
      */
     private NoteImageAdapter adapter;
 
-
     public NoteImageView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
-
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
@@ -118,13 +115,12 @@ public class NoteImageView extends ImageMapView {
         String itemText;
         Paint temporaryPaint;
         Rect textBound;
+
         // TODO refactor left and right to avoid duplicated code
         if (left.size() > 0) {
-
             height = HEIGHT / left.size();
             for (int i = 0; i < left.size(); i++) {
                 Object item = left.get(i);
-
 
                 Bitmap itemBitmap = adapter.getItemBitmap(item);
                 if (itemBitmap == null) {
@@ -136,7 +132,6 @@ public class NoteImageView extends ImageMapView {
                 float textMaxWidth = getMaximumWidth(itemText, temporaryPaint);
                 temporaryPaint.getTextBounds(itemText, 0, itemText.length() - 1, textBound);
                 float textHeight = textBound.height();
-
 
                 if (item != null) {
                     PointF location = getLocation(item);
@@ -166,7 +161,6 @@ public class NoteImageView extends ImageMapView {
             }
         }
         if (right.size() > 0) {
-
             height = HEIGHT / right.size();
             for (int i = 0; i < right.size(); i++) {
                 Object item = right.get(i);
@@ -244,6 +238,7 @@ public class NoteImageView extends ImageMapView {
             return Float.compare(itemLocation.y, adapter.getItemCoordinates(second).y);
         }
     }
+
     /**
      * Get the maximum width of a text respecting line break (i.e. \n in text).
      *
