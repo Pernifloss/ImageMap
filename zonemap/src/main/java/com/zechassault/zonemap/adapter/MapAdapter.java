@@ -1,10 +1,10 @@
-package com.zechassault.zonemap.adapter2;
+package com.zechassault.zonemap.adapter;
 
 import android.graphics.Bitmap;
 import android.graphics.PointF;
 
-import com.zechassault.zonemap.listener2.AdapterListener;
-import com.zechassault.zonemap.listener2.ItemClickListener;
+import com.zechassault.zonemap.listener.AdapterListener;
+import com.zechassault.zonemap.listener.ItemClickListener;
 
 public abstract class MapAdapter<T> {
 

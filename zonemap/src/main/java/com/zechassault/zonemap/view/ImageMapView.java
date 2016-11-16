@@ -1,4 +1,4 @@
-package com.zechassault.zonemap.view2;
+package com.zechassault.zonemap.view;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -13,9 +13,9 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.zechassault.zonemap.adapter2.MapAdapter;
-import com.zechassault.zonemap.listener2.AdapterListener;
-import com.zechassault.zonemap.util2.BitmapUtils;
+import com.zechassault.zonemap.adapter.MapAdapter;
+import com.zechassault.zonemap.listener.AdapterListener;
+import com.zechassault.zonemap.util.BitmapUtils;
 
 import java.util.HashMap;
 import java.util.Map;

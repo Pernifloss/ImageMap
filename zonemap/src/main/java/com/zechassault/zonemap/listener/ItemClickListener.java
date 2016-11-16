@@ -1,4 +1,4 @@
-package com.zechassault.zonemap.listener2;
+package com.zechassault.zonemap.listener;
 
 
 public interface ItemClickListener<T> {
