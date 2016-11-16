@@ -13,7 +13,7 @@ repositories {
 And add it as a dependency with 
 ```groovy
 
-    compile 'com.zechassault.zonemap:zonemap:0.1.0'
+    compile 'com.zechassault.zonemap:zonemap:0.3.0'
     
 ```
 This library deliver two views, first the simple ImageMapView, it allow you to place items on an image and define where they are positioned and wich bitmap is drawn at this position. (a little bit like a map with marker but way simpler to use)
