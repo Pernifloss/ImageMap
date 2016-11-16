@@ -1,6 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.jfrog.bintray'
 apply plugin: 'com.github.dcendents.android-maven'
+
 android {
     compileSdkVersion 24
     buildToolsVersion "24.0.3"
@@ -21,8 +22,8 @@ android {
         }
     }
 }
-dependencies {
 
+dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
@@ -33,7 +34,7 @@ dependencies {
 }
 
 group = 'com.zechassault.zonemap'
-version = '0.2.0'
+version = '0.3.0'
 
 task generateSourcesJar(type: Jar) {
     from android.sourceSets.main.java.srcDirs
@@ -58,11 +59,11 @@ bintray {
     pkg {
         repo = 'maven'
         name = 'imagemap'
-        userOrg  = 'zechassault'
+        userOrg = 'zechassault'
         version {
-            name = '0.2.0-zone'
-            desc = '0.2.0'
-            vcsTag = '0.2.0'
+            name = '0.3.0-zone'
+            desc = '0.3.0'
+            vcsTag = '0.3.0'
         }
 
         licenses = ['MIT']
