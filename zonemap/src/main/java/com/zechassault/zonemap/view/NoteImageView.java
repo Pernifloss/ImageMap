@@ -133,7 +133,7 @@ public class NoteImageView extends ImageMapView {
                 itemText = adapter.getLabel(item);
                 temporaryPaint = adapter.getLabelPaint(item);
                 textBound = new Rect();
-                float textWidth = temporaryPaint.measureText(itemText);
+                float textMaxWidth = getMaximumWidth(itemText, temporaryPaint);
                 temporaryPaint.getTextBounds(itemText, 0, itemText.length() - 1, textBound);
                 float textHeight = textBound.height();
 
@@ -145,7 +145,7 @@ public class NoteImageView extends ImageMapView {
                     Rect rect = new Rect(
                             0,
                             Math.round(positionY - textHeight),
-                            Math.round(textWidth),
+                            Math.round(textMaxWidth),
                             positionY + Math.round(textHeight));
 
                     labelClickable.put(rect, item);
@@ -153,10 +153,11 @@ public class NoteImageView extends ImageMapView {
                     float itemHeight = itemBitmap.getHeight() / (scaleToBackground ? ratio : 1);
                     float itemWidth = itemBitmap.getWidth() / (scaleToBackground ? ratio : 1);
 
-                    canvas.drawText(itemText, 0, positionY, temporaryPaint);
+                    drawText(canvas, temporaryPaint, 0, positionY, itemText, true);
+
                     PointF anchor = adapter.getAnchor(item);
                     canvas.drawLine(
-                            textWidth + TEXT_MARGIN,
+                            textMaxWidth + TEXT_MARGIN,
                             positionY - (textHeight / 2),
                             location.x + (itemWidth * anchor.x) - (itemWidth / 2),
                             location.y + (itemHeight * anchor.y) - (itemHeight / 2),
@@ -175,24 +176,23 @@ public class NoteImageView extends ImageMapView {
 
                 temporaryPaint = adapter.getLabelPaint(item);
 
-                float textSize = temporaryPaint.measureText(itemText);
+                float textMaxWidth = getMaximumWidth(itemText, temporaryPaint);
                 temporaryPaint.getTextBounds(itemText, 0, itemText.length() - 1, textBound);
-                float textSizeH = textBound.height();
+                float textHeight = textBound.height();
 
                 if (item != null) {
                     PointF location = getLocation(item);
 
                     int positionY = (height / 2) + (height * i);
                     Rect rect = new Rect(
-                            Math.round(WIDTH - textSize),
-                            Math.round(positionY - (textSizeH)),
+                            Math.round(WIDTH - textMaxWidth),
+                            Math.round(positionY - (textHeight)),
                             Math.round(WIDTH),
-                            Math.round(positionY + textSizeH));
+                            Math.round(positionY + textHeight));
 
                     labelClickable.put(rect, item);
-                    canvas.drawText(itemText, WIDTH - textSize,
-                            (height / 2) + (height * i) + Math.round(textSizeH), temporaryPaint);
 
+                    drawText(canvas, temporaryPaint, WIDTH, (height / 2) + (height * i) + Math.round(textHeight), itemText, false);
 
                     Bitmap itemBitmap = adapter.getItemBitmap(item);
                     if (itemBitmap == null) {
@@ -202,8 +202,8 @@ public class NoteImageView extends ImageMapView {
                     float itemWidth = itemBitmap.getWidth() / (scaleToBackground ? ratio : 1);
 
                     PointF anchor = adapter.getAnchor(item);
-                    canvas.drawLine(WIDTH - textSize - TEXT_MARGIN,
-                            5 + positionY + textSizeH / 2,
+                    canvas.drawLine(WIDTH - textMaxWidth - TEXT_MARGIN,
+                            5 + positionY + textHeight / 2,
                             location.x + (itemWidth * anchor.x) - (itemWidth / 2),
                             location.y + (itemHeight * anchor.y) - (itemHeight / 2),
                             adapter.getLinePaint(item));
@@ -242,6 +242,50 @@ public class NoteImageView extends ImageMapView {
         public int compare(Object first, Object second) {
             PointF itemLocation = adapter.getItemCoordinates(first);
             return Float.compare(itemLocation.y, adapter.getItemCoordinates(second).y);
+        }
+    }
+    /**
+     * Get the maximum width of a text respecting line break (i.e. \n in text).
+     *
+     * @param text  the text to draw
+     * @param paint the paint to draw
+     * @return the maximum width
+     */
+    private static float getMaximumWidth(final String text, final Paint paint) {
+        float width = 0;
+        for (String token : text.split("\n")) {
+            final float textWidth = paint.measureText(token);
+            if (textWidth > width) {
+                width = textWidth;
+            }
+        }
+
+        return width;
+    }
+
+    /**
+     * Draw a text on a canvas respecting line break (i.e. \n in text).
+     *
+     * @param canvas          the canvas
+     * @param paint           the paint to draw
+     * @param x               the x position of text
+     * @param y               the y position of text to draw
+     * @param text            the text to draw
+     * @param isLeftAlignment the text is left or right alignment
+     */
+    private static void drawText(final Canvas canvas, final Paint paint, final float x,
+                                 final float y, final String text, final boolean isLeftAlignment) {
+        float textVerticalMargin = 0;
+        for (String token : text.split("\n")) {
+            final Rect textBound = new Rect();
+            final int textLength = token.length() > 1 ? token.length() - 1 : 0;
+            paint.getTextBounds(token, 0, textLength, textBound);
+            float textWidth = paint.measureText(token);
+            float textHeight = textBound.height();
+            float textX = isLeftAlignment ? x : x - textWidth;
+            float textY = y + textVerticalMargin;
+            canvas.drawText(token, textX, textY, paint);
+            textVerticalMargin += textHeight + 5;
         }
     }
 }
