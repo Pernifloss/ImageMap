@@ -1,4 +1,4 @@
-package com.zechassault.zonemap.view;
+package com.zechassault.zonemap.view2;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -10,8 +10,8 @@ import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
-import com.zechassault.zonemap.adapter.NoteImageAdapter;
-import com.zechassault.zonemap.util.BitmapUtils;
+import com.zechassault.zonemap.adapter2.NoteImageAdapter;
+import com.zechassault.zonemap.util2.BitmapUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
