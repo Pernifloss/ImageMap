@@ -97,11 +97,13 @@ public class ImageMapView extends View {
      * Define weather or not zone bitmap scale to background image
      */
     protected boolean scaleToBackground = true;
+    private String TAG = "ImageMapView";
 
     /**
      * ImageMapView extending android.view.View
+     *
      * @param context android context
-     * @param attrs xml AttributeSet
+     * @param attrs   xml AttributeSet
      */
     public ImageMapView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -125,7 +127,14 @@ public class ImageMapView extends View {
      * @return the rectangle that will contain the fitted bitmap
      */
     protected Rect getDestinationRect(Bitmap bitmap, int canvasWidth, int canvasHeight) {
-        ratio = (float) bitmap.getHeight() / canvasHeight;
+        float bitmapRatio = (float) bitmap.getHeight() / (float) bitmap.getWidth();
+        float canvasRatio = canvasHeight / canvasWidth;
+        // if the bitmap h/w ratio is bigger than the canvas ratio we use width to fit the image
+        if (bitmapRatio < canvasRatio) {
+            ratio = (float) bitmap.getWidth() / canvasWidth;
+        } else {
+            ratio = (float) bitmap.getHeight() / canvasHeight;
+        }
         startX = canvasWidth / 2 - bitmap.getWidth() / ratio / 2;
         startY = canvasHeight / 2 - bitmap.getHeight() / ratio / 2;
 
