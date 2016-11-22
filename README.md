@@ -80,7 +80,7 @@ If you want an exemple feel free to clone the project, it has a demo app that di
 
 The other view is called NoteImageView, it's like ImgeView map, but you also have labels diplayed on both side on the image, they are liken to the items. Like the following :
 
-![alt text](https://github.com/lary-pipot/ImageMap/blob/master/anatomival.gif)
+![alt text](https://github.com/lary-pipot/ImageMap/blob/master/anatomical.gif)
 
 Label click are also considered as click on specified item !
 
