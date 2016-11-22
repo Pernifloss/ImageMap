@@ -13,24 +13,28 @@
         android:layout_height="match_parent"
         android:id="@+id/imageMapView"
         android:visibility="invisible"
-        android:src="@drawable/anatomy_dot_selected" />
+        android:src="@drawable/anatomical_chart_back" />
 
     <com.zechassault.zonemap.view.NoteImageView
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/imageMapViewFront"
-        android:src="@drawable/anatomy_dot_selected" />
+        android:src="@drawable/anatomical_chart_front" />
 
     <ImageView
         android:layout_width="50dp"
         android:layout_height="50dp"
+        android:visibility="gone"
         android:id="@+id/imageViewRotate"
-        android:src="@drawable/ic_rotate"
-        android:tint="#71ad77"
-        android:layout_alignTop="@+id/imageMapView"
+        android:src="@drawable/rotation"
+        android:background="@drawable/bg_button_light"
+        android:layout_marginLeft="76dp"
+        android:layout_marginStart="76dp"
+        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="40dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="40dp" />
+        android:layout_alignParentStart="true" />
 </RelativeLayout>

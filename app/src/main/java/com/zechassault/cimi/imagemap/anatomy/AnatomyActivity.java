@@ -43,7 +43,7 @@ public class AnatomyActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.anatomy_activity);
 
         /*Create data to populate adapter */
         setUpData();
