@@ -6,14 +6,14 @@ For now, you can get it on this repo
 ```groovy
 repositories {
         maven {
-            url  "http://zechassault.bintray.com/maven"
+             url "https://jitpack.io" 
         }
    }
 ```
 And add it as a dependency with 
 ```groovy
 
-    compile 'com.zechassault.zonemap:zonemap:0.4.0'
+    compile 'com.github.Pernifloss:ImageMap:0.4.0'
     
 ```
 This library deliver two views, first the simple ImageMapView, it allow you to place items on an image and define where they are positioned and wich bitmap is drawn at this position. (a little bit like a map with marker but way simpler to use)
@@ -27,7 +27,7 @@ How it work? really simply
 First define view on xml use src attribute to define the main image: 
 
 ```xml
-<com.zechassault.zonemap.View.ImageMapView
+<com.zechassault.zonemap.view.ImageMapView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:src="@drawable/my_image" />
@@ -80,7 +80,7 @@ If you want an exemple feel free to clone the project, it has a demo app that di
 
 The other view is called NoteImageView, it's like ImgeView map, but you also have labels diplayed on both side on the image, they are liken to the items. Like the following :
 
-![alt text](https://github.com/lary-pipot/ImageMap/blob/master/europe.gif)
+![alt text](https://github.com/lary-pipot/ImageMap/blob/master/anatomical.gif)
 
 Label click are also considered as click on specified item !
 
