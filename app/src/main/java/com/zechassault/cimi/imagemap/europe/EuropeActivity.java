@@ -23,8 +23,6 @@ public class EuropeActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_europe);
 
-        Toast.makeText(getApplicationContext(),"Under Construction, don't judge me \uD83D\uDE1E ",Toast.LENGTH_SHORT).show();
-
         Set<AnatomyItem> points = new HashSet<>();
 
         NoteImageView imageMapView = (NoteImageView) findViewById(R.id.imageMapView);
