@@ -22,19 +22,19 @@
         android:layout_above="@+id/linearLayoutButton"
         android:layout_height="match_parent">
 
-        <com.zechassault.zonemap.View.NoteImageView
+        <com.zechassault.zonemap.view.NoteImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/front"
             android:src="@drawable/aaaa" />
 
-        <com.zechassault.zonemap.View.NoteImageView
+        <com.zechassault.zonemap.view.NoteImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/profile"
             android:src="@drawable/profile" />
 
-        <com.zechassault.zonemap.View.NoteImageView
+        <com.zechassault.zonemap.view.NoteImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/back"

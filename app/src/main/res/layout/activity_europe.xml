@@ -8,7 +8,7 @@
     tools:context=".europe.EuropeActivity">
 
 
-    <com.zechassault.zonemap.View.NoteImageView
+    <com.zechassault.zonemap.view.NoteImageView
         android:id="@+id/imageMapView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

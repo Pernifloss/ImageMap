@@ -8,14 +8,14 @@
     tools:context=".anatomy.AnatomyActivity">
 
 
-    <com.zechassault.zonemap.View.NoteImageView
+    <com.zechassault.zonemap.view.NoteImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/imageMapView"
         android:visibility="invisible"
         android:src="@drawable/anatomy_dot_selected" />
 
-    <com.zechassault.zonemap.View.NoteImageView
+    <com.zechassault.zonemap.view.NoteImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/imageMapViewFront"

@@ -18,7 +18,7 @@
         android:textStyle="bold" />
 
 
-    <com.zechassault.zonemap.View.ImageMapView
+    <com.zechassault.zonemap.view.ImageMapView
         android:id="@+id/imageMapViewFront"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
