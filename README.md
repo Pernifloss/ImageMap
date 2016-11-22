@@ -27,7 +27,7 @@ How it work? really simply
 First define view on xml use src attribute to define the main image: 
 
 ```xml
-<com.zechassault.zonemap.View.ImageMapView
+<com.zechassault.zonemap.view.ImageMapView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:src="@drawable/my_image" />
