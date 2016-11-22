@@ -1,5 +1,4 @@
 apply plugin: 'com.android.library'
-apply plugin: 'com.jfrog.bintray'
 apply plugin: 'com.github.dcendents.android-maven'
 
 android {
@@ -34,7 +33,7 @@ dependencies {
 }
 
 group = 'com.zechassault.zonemap'
-version = '0.4.0'
+version = '0.4.1'
 
 task generateSourcesJar(type: Jar) {
     from android.sourceSets.main.java.srcDirs
@@ -53,25 +52,6 @@ task generateJavaDocsJar(type: Jar) {
 }
 generateJavaDocsJar.dependsOn generateJavaDocs
 
-bintray {
-    user = 'pernifloss'
-    key = 'bc9611a132a5a0ef361e7b8ebae1927a15eccee3'
-    pkg {
-        repo = 'maven'
-        name = 'imagemap'
-        userOrg = 'zechassault'
-        version {
-            name = '0.4.0-zone'
-            desc = '0.4.0'
-            vcsTag = '0.4.0'
-        }
-
-        licenses = ['MIT']
-        vcsUrl = 'https://github.com/Pernifloss/ImageMap.git'
-        websiteUrl = 'https://github.com/Pernifloss/ImageMap'
-    }
-    configurations = ['archives']
-}
 artifacts {
     archives generateJavaDocsJar
     archives generateSourcesJar
