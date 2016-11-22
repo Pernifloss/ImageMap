@@ -13,7 +13,7 @@ repositories {
 And add it as a dependency with 
 ```groovy
 
-    compile 'com.github.Pernifloss:ImageMap:0.4.0'
+    compile 'com.github.Pernifloss:ImageMap:0.4.1'
     
 ```
 This library deliver two views, first the simple ImageMapView, it allow you to place items on an image and define where they are positioned and wich bitmap is drawn at this position. (a little bit like a map with marker but way simpler to use)
