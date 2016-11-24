@@ -22,7 +22,7 @@ Here is a little demo of the simple ImageMapView, in this demo the user have to 
 
 ![alt text](https://github.com/lary-pipot/ImageMap/blob/master/operation.gif)
 
-How it work? really simply
+How does it work? really simply
 
 First define view on xml use src attribute to define the main image: 
 
@@ -73,7 +73,7 @@ An then you define specidied method :
 
 ```
 
-You can then interact with items by setting the itemClickListener of you addapter.
+You can then interact with items by setting the itemClickListener of your addapter.
 
 If you want an exemple feel free to clone the project, it has a demo app that display an ImageViewMap.
 
@@ -128,4 +128,4 @@ There is a way of telling on wich side you want a label to appear.
 
 Please note that this library is still in development, and i will be glad to correct bugs and add new features!
 
-We made the choice to manipulate bitmap and paint for maximum flexibulity and customisation, but don't worry the library come with a helper that convert drawable to bitmap.
+We made the choice to manipulate bitmap and paint for maximum flexibility and customisation, but don't worry the library come with a helper that convert drawable to bitmap.
