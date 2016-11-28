@@ -25,16 +25,4 @@
         android:id="@+id/imageMapViewFront"
         android:src="@drawable/anatomical_chart_front" />
 
-    <ImageView
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:visibility="gone"
-        android:id="@+id/imageViewRotate"
-        android:src="@drawable/rotation"
-        android:background="@drawable/bg_button_light"
-        android:layout_marginLeft="76dp"
-        android:layout_marginStart="76dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
 </RelativeLayout>

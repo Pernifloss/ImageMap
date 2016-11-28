@@ -212,7 +212,12 @@ public class NoteImageView extends ImageMapView {
             int y = Math.round(motionEvent.getY());
             for (Rect rect : labelClickable.keySet()) {
                 if (doesIntersect(x, y, rect)) {
+
                     if (adapter.itemClickListener != null) {
+                        if(debug){
+                            Object item = labelClickable.get(rect);
+                            debugLog("onTouchEvent label tapped ! label :"+adapter.getLabel(item)+" for item : "+item.toString());
+                        }
                         adapter.itemClickListener.onMapItemClick(labelClickable.get(rect));
                     }
                 }

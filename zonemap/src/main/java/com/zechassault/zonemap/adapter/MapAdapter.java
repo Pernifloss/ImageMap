@@ -37,7 +37,8 @@ public abstract class MapAdapter<T> {
     public abstract PointF getItemCoordinates(T item);
 
     /**
-     * Define this function to indicate which item the given position correspond to
+     * Define this function to indicate which item the given index correspond to
+     * (for iterating purpose)
      *
      * @param position int, index of item
      * @return the item corresponding to the position index
@@ -66,15 +67,15 @@ public abstract class MapAdapter<T> {
      *
      * @param item the item of which the bitmap will correspond
      * @return the Bitmap to draw for given item or an empty bitmap
-     *
      */
-    public Bitmap getNotNullBitmap(T item){
+    public Bitmap getNotNullBitmap(T item) {
         Bitmap itemBitmap = getItemBitmap(item);
         if (itemBitmap == null) {
             itemBitmap = BitmapUtils.getEmptyBitmap();
         }
         return itemBitmap;
     }
+
     /**
      * Call this method to notify a change occurred on data
      */
