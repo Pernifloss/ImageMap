@@ -95,14 +95,22 @@ public class NoteImageView extends ImageMapView {
     @Override
     protected void onDraw(Canvas canvas) {
         // Erase canvas
-        canvas.drawColor(Color.TRANSPARENT);
-        if (background != null) {
-            canvas.drawBitmap(background, null, destination, paint);
-        }
-        bitmapClickable.clear();
-        addAllPins(canvas);
+        super.onDraw(canvas);
         labelClickable.clear();
         drawnPoints(canvas);
+        if (uIDebug) {
+
+            for (Rect r : labelClickable.keySet()) {
+
+                canvas.drawRect(r
+                        , debugPaint);
+                for (int i = 0; i < adapter.getCount(); i++) {
+                    if (adapter.getItemAtPosition(i).equals(labelClickable.get(r))) {
+                        canvas.drawText(i + "", r.left, r.top, debugPaint);
+                    }
+                }
+            }
+        }
     }
 
     /**
@@ -122,38 +130,28 @@ public class NoteImageView extends ImageMapView {
             for (int i = 0; i < left.size(); i++) {
                 Object item = left.get(i);
 
-                Bitmap itemBitmap = adapter.getItemBitmap(item);
-                if (itemBitmap == null) {
-                    itemBitmap = BitmapUtils.getEmptyBitmap();
-                }
+                Bitmap itemBitmap = adapter.getNotNullBitmap(item);
                 itemText = adapter.getLabel(item);
                 temporaryPaint = adapter.getLabelPaint(item);
                 textBound = new Rect();
                 float textMaxWidth = getMaximumWidth(itemText, temporaryPaint);
                 temporaryPaint.getTextBounds(itemText, 0, itemText.length() - 1, textBound);
-                float textHeight = textBound.height();
 
                 if (item != null) {
                     PointF location = getLocation(item);
 
                     int positionY = (height / 2) + (height * i);
-                    Rect rect = new Rect(
-                            0,
-                            Math.round(positionY - textHeight),
-                            Math.round(textMaxWidth),
-                            positionY + Math.round(textHeight));
 
-                    labelClickable.put(rect, item);
 
                     float itemHeight = itemBitmap.getHeight() / (scaleToBackground ? ratio : 1);
                     float itemWidth = itemBitmap.getWidth() / (scaleToBackground ? ratio : 1);
 
-                    drawText(canvas, temporaryPaint, 0, positionY, itemText, true);
+                    labelClickable.put(drawText(canvas, temporaryPaint, 0, positionY, itemText, true), item);
 
                     PointF anchor = adapter.getAnchor(item);
                     canvas.drawLine(
                             textMaxWidth + TEXT_MARGIN,
-                            positionY - (textHeight / 2),
+                            positionY - (textBound.height() / 2),
                             location.x + (itemWidth * anchor.x) - (itemWidth / 2),
                             location.y + (itemHeight * anchor.y) - (itemHeight / 2),
                             adapter.getLinePaint(item));
@@ -170,40 +168,35 @@ public class NoteImageView extends ImageMapView {
 
                 temporaryPaint = adapter.getLabelPaint(item);
 
-                float textMaxWidth = getMaximumWidth(itemText, temporaryPaint);
                 temporaryPaint.getTextBounds(itemText, 0, itemText.length() - 1, textBound);
-                float textHeight = textBound.height();
+
 
                 if (item != null) {
                     PointF location = getLocation(item);
 
                     int positionY = (height / 2) + (height * i);
-                    Rect rect = new Rect(
-                            Math.round(WIDTH - textMaxWidth),
-                            Math.round(positionY - (textHeight)),
-                            Math.round(WIDTH),
-                            Math.round(positionY + textHeight));
 
+
+                    Rect rect = drawText(canvas, temporaryPaint, WIDTH, positionY, itemText, false);
                     labelClickable.put(rect, item);
-
-                    drawText(canvas, temporaryPaint, WIDTH, (height / 2) + (height * i) + Math.round(textHeight), itemText, false);
-
-                    Bitmap itemBitmap = adapter.getItemBitmap(item);
-                    if (itemBitmap == null) {
-                        itemBitmap = BitmapUtils.getEmptyBitmap();
-                    }
-                    float itemHeight = itemBitmap.getHeight() / (scaleToBackground ? ratio : 1);
-                    float itemWidth = itemBitmap.getWidth() / (scaleToBackground ? ratio : 1);
-
-                    PointF anchor = adapter.getAnchor(item);
-                    canvas.drawLine(WIDTH - textMaxWidth - TEXT_MARGIN,
-                            5 + positionY + textHeight / 2,
-                            location.x + (itemWidth * anchor.x) - (itemWidth / 2),
-                            location.y + (itemHeight * anchor.y) - (itemHeight / 2),
-                            adapter.getLinePaint(item));
+                    drawLine(canvas, textBound, item, location, positionY, rect.width());
                 }
             }
         }
+    }
+
+    private void drawLine(Canvas canvas, Rect textBound, Object item, PointF location, int positionY, float textMaxWidth) {
+        Bitmap itemBitmap = adapter.getNotNullBitmap(item);
+        float itemHeight = itemBitmap.getHeight() / (scaleToBackground ? ratio : 1);
+        float itemWidth = itemBitmap.getWidth() / (scaleToBackground ? ratio : 1);
+
+        PointF anchor = adapter.getAnchor(item);
+
+        canvas.drawLine(WIDTH - textMaxWidth - TEXT_MARGIN,
+                positionY - (textBound.height() / 2),
+                location.x + (itemWidth * anchor.x) - (itemWidth / 2),
+                location.y + (itemHeight * anchor.y) - (itemHeight / 2),
+                adapter.getLinePaint(item));
     }
 
     /**
@@ -268,19 +261,35 @@ public class NoteImageView extends ImageMapView {
      * @param text            the text to draw
      * @param isLeftAlignment the text is left or right alignment
      */
-    private static void drawText(final Canvas canvas, final Paint paint, final float x,
+    private static Rect drawText(final Canvas canvas, final Paint paint, final float x,
                                  final float y, final String text, final boolean isLeftAlignment) {
+
         float textVerticalMargin = 0;
+        float maxWidth = 0;
+        float textHeight = 0;
+        float textX = 0;
+        float minTextX = x;
         for (String token : text.split("\n")) {
             final Rect textBound = new Rect();
             final int textLength = token.length() > 1 ? token.length() - 1 : 0;
             paint.getTextBounds(token, 0, textLength, textBound);
             float textWidth = paint.measureText(token);
-            float textHeight = textBound.height();
-            float textX = isLeftAlignment ? x : x - textWidth;
+            textHeight = textBound.height();
+            textX = isLeftAlignment ? x : x - textWidth;
             float textY = y + textVerticalMargin;
             canvas.drawText(token, textX, textY, paint);
             textVerticalMargin += textHeight + 5;
+            if (textWidth > maxWidth) {
+                maxWidth = textWidth;
+            }
+            if (minTextX > textX) {
+                minTextX = textX;
+            }
         }
+        return new Rect(
+                Math.round(minTextX),
+                Math.round(y - textHeight),
+                Math.round(minTextX + maxWidth),
+                Math.round(y + textVerticalMargin - textHeight));
     }
 }

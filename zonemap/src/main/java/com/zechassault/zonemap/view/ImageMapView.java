@@ -97,7 +97,11 @@ public class ImageMapView extends View {
      * Define weather or not zone bitmap scale to background image
      */
     protected boolean scaleToBackground = true;
+
     private String TAG = "ImageMapView";
+
+    protected boolean uIDebug = false;
+    protected final Paint debugPaint;
 
     /**
      * ImageMapView extending android.view.View
@@ -116,6 +120,12 @@ public class ImageMapView extends View {
         }
 
         paint = new Paint();
+
+        debugPaint = new Paint();
+        debugPaint.setStrokeWidth(3);
+        debugPaint.setColor(Color.RED);
+        debugPaint.setStyle(Paint.Style.STROKE);
+        debugPaint.setTextSize(50);
     }
 
     /**
@@ -175,9 +185,17 @@ public class ImageMapView extends View {
         canvas.drawColor(Color.TRANSPARENT);
         if (background != null) {
             canvas.drawBitmap(background, null, destination, paint);
+            if (uIDebug) {
+                canvas.drawRect(destination, debugPaint);
+            }
+
         }
         bitmapClickable.clear();
         addAllPins(canvas);
+    }
+
+    public void setDebug(boolean debug) {
+        uIDebug = debug;
     }
 
     /**
@@ -213,7 +231,20 @@ public class ImageMapView extends View {
                             sourceRect,
                             destinationRect,
                             paint);
+
                     bitmapClickable.put(destinationRect, item);
+                }
+            }
+            if (uIDebug) {
+                for (Rect r : bitmapClickable.keySet()) {
+
+                    canvas.drawRect(r
+                            , debugPaint);
+                    for (int i = 0; i < adapter.getCount(); i++) {
+                        if (adapter.getItemAtPosition(i).equals(bitmapClickable.get(r))) {
+                            canvas.drawText(i + "", r.left, r.top, debugPaint);
+                        }
+                    }
                 }
             }
         }

@@ -5,6 +5,7 @@ import android.graphics.PointF;
 
 import com.zechassault.zonemap.listener.AdapterListener;
 import com.zechassault.zonemap.listener.ItemClickListener;
+import com.zechassault.zonemap.util.BitmapUtils;
 
 public abstract class MapAdapter<T> {
 
@@ -59,6 +60,21 @@ public abstract class MapAdapter<T> {
      */
     public abstract Bitmap getItemBitmap(T item);
 
+
+    /**
+     * Wrap adapter function to handle null bitmap
+     *
+     * @param item the item of which the bitmap will correspond
+     * @return the Bitmap to draw for given item or an empty bitmap
+     *
+     */
+    public Bitmap getNotNullBitmap(T item){
+        Bitmap itemBitmap = getItemBitmap(item);
+        if (itemBitmap == null) {
+            itemBitmap = BitmapUtils.getEmptyBitmap();
+        }
+        return itemBitmap;
+    }
     /**
      * Call this method to notify a change occurred on data
      */
