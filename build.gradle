@@ -2,9 +2,6 @@
 buildscript {
     repositories {
         jcenter()
-        maven {
-            url  "http://zechassault.bintray.com/ImageMap"
-        }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.2.2'
