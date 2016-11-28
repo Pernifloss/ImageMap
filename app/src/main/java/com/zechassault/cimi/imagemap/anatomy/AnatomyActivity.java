@@ -59,41 +59,6 @@ public class AnatomyActivity extends Activity {
         // Set ImageMapView check tap location and only trigger select if visible pixel is hit
         imageMapViewFront.setAllowTransparent(false);
 
-        /* Don't mind this part, for rotation animation purpose ... */
-
-        card_flip_left_out = AnimatorInflater.loadAnimator(AnatomyActivity.this,
-                R.animator.card_flip_left_out);
-        card_flip_left_out.setTarget(imageMapViewFront);
-        card_flip_right_in = AnimatorInflater.loadAnimator(AnatomyActivity.this,
-                R.animator.card_flip_right_in);
-        card_flip_right_in.setTarget(imageMapViewFront);
-        card_flip_right_in.addListener(hideBack);
-        card_flip_left_in = AnimatorInflater.loadAnimator(AnatomyActivity.this,
-                R.animator.card_flip_left_in);
-        card_flip_left_in.setTarget(imageMapViewBack);
-        card_flip_left_in.addListener(hideFront);
-        card_flip_right_out = AnimatorInflater.loadAnimator(AnatomyActivity.this,
-                R.animator.card_flip_right_out);
-        card_flip_right_out.setTarget(imageMapViewBack);
-
-        ImageView imageViewRotate = (ImageView) findViewById(R.id.imageViewRotate);
-        imageViewRotate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                imageMapViewFront.setVisibility(View.VISIBLE);
-                imageMapViewBack.setVisibility(View.VISIBLE);
-                if (isFrontShown) {
-                    card_flip_left_out.start();
-                    card_flip_left_in.start();
-                } else {
-                    card_flip_right_out.start();
-                    card_flip_right_in.start();
-                }
-                isFrontShown = !isFrontShown;
-            }
-        });
-
-
     }
 
     private void setUpData() {
@@ -133,53 +98,5 @@ public class AnatomyActivity extends Activity {
         pointsBack.add(new AnatomyItem("Foot", new PointF(0.60f, 0.96f), null, null));
         pointsBack.add(new AnatomyItem("Gluts", new PointF(0.54f, 0.48f), null, null));
     }
-
-    /* Don't mind this part, for rotation animation purpose ... */
-    private Animator card_flip_left_out;
-    private Animator card_flip_left_in;
-    private Animator card_flip_right_in;
-    private Animator card_flip_right_out;
-    private boolean isFrontShown = true;
-    private Animator.AnimatorListener hideBack = new Animator.AnimatorListener() {
-        @Override
-        public void onAnimationStart(Animator animator) {
-
-        }
-
-        @Override
-        public void onAnimationEnd(Animator animator) {
-            imageMapViewBack.setVisibility(View.INVISIBLE);
-            imageMapViewFront.setVisibility(View.VISIBLE);
-        }
-
-        @Override
-        public void onAnimationCancel(Animator animator) {
-
-        }
-
-        @Override
-        public void onAnimationRepeat(Animator animator) {
-
-        }
-    };
-    private Animator.AnimatorListener hideFront = new Animator.AnimatorListener() {
-        @Override
-        public void onAnimationStart(Animator animator) {
-        }
-
-        @Override
-        public void onAnimationEnd(Animator animator) {
-            imageMapViewFront.setVisibility(View.INVISIBLE);
-            imageMapViewBack.setVisibility(View.VISIBLE);
-        }
-
-        @Override
-        public void onAnimationCancel(Animator animator) {
-        }
-
-        @Override
-        public void onAnimationRepeat(Animator animator) {
-        }
-    };
 
 }
