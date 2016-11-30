@@ -3,7 +3,6 @@ package com.zechassault.zonemap.view;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PointF;
 import android.graphics.Rect;
@@ -11,7 +10,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 
 import com.zechassault.zonemap.adapter.NoteImageAdapter;
-import com.zechassault.zonemap.util.BitmapUtils;
+import com.zechassault.zonemap.listener.AdapterListener;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -53,8 +52,8 @@ public class NoteImageView extends ImageMapView {
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         this.WIDTH = w;
         this.HEIGHT = h;
-        if (background != null) {
-            destination = getDestinationRect(background, w, h);
+        if (backImage != null) {
+            destination = getDestinationRect(backImage, w, h);
         }
 
         super.onSizeChanged(w, h, oldw, oldh);
@@ -62,9 +61,20 @@ public class NoteImageView extends ImageMapView {
 
     public void setAdapter(final NoteImageAdapter adapter) {
         super.setAdapter(adapter);
+        adapter.listener = new AdapterListener() {
+            @Override
+            public void notifyDataSetHasChanged() {
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        NoteImageView.this.invalidate();
+                    }
+                });
+                refreshElements();
+            }
+        };
         NoteImageView.this.adapter = adapter;
         refreshElements();
-
     }
 
     /**
@@ -214,9 +224,9 @@ public class NoteImageView extends ImageMapView {
                 if (doesIntersect(x, y, rect)) {
 
                     if (adapter.itemClickListener != null) {
-                        if(debug){
+                        if (debug) {
                             Object item = labelClickable.get(rect);
-                            debugLog("onTouchEvent label tapped ! label :"+adapter.getLabel(item)+" for item : "+item.toString());
+                            debugLog("onTouchEvent label tapped ! label :" + adapter.getLabel(item) + " for item : " + item.toString());
                         }
                         adapter.itemClickListener.onMapItemClick(labelClickable.get(rect));
                     }

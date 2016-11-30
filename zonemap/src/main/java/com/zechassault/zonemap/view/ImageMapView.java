@@ -26,7 +26,8 @@ public class ImageMapView extends View {
     /**
      * Main image bitmap
      */
-    protected Bitmap background;
+    protected Bitmap backImage;
+
 
     /**
      * Padding between start of canvas and start of main image
@@ -94,7 +95,7 @@ public class ImageMapView extends View {
 
 
     /**
-     * Define weather or not zone bitmap scale to background image
+     * Define weather or not zone bitmap scale to backImage image
      */
     protected boolean scaleToBackground = true;
 
@@ -115,7 +116,7 @@ public class ImageMapView extends View {
         try {
             int src_resource = attrs.getAttributeResourceValue("http://schemas.android.com/apk/res/android", "src", 0);
 
-            background = BitmapUtils.resAsBitmap(getResources().getDrawable(src_resource));
+            backImage = BitmapUtils.resAsBitmap(getResources().getDrawable(src_resource));
         } catch (Exception e) {
             Log.i("ImageMapView", "src not defined in xml ! " + e.getMessage());
         }
@@ -175,8 +176,8 @@ public class ImageMapView extends View {
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         this.WIDTH = w;
         this.HEIGHT = h;
-        if (background != null) {
-            destination = getDestinationRect(background, w, h);
+        if (backImage != null) {
+            destination = getDestinationRect(backImage, w, h);
         }
         super.onSizeChanged(w, h, oldw, oldh);
     }
@@ -184,8 +185,8 @@ public class ImageMapView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         canvas.drawColor(Color.TRANSPARENT);
-        if (background != null) {
-            canvas.drawBitmap(background, null, destination, paint);
+        if (backImage != null) {
+            canvas.drawBitmap(backImage, null, destination, paint);
             if (uIDebug) {
                 canvas.drawRect(destination, debugPaint);
             }
@@ -253,7 +254,7 @@ public class ImageMapView extends View {
     }
 
     /**
-     * Return the location of an item, scaled with the background image
+     * Return the location of an item, scaled with the backImage image
      *
      * @param item the item to place on the image map
      * @return PointF coordinate of item
@@ -277,7 +278,7 @@ public class ImageMapView extends View {
             int x = Math.round(motionEvent.getX());
             int y = Math.round(motionEvent.getY());
             debugLog("onTouchEvent tapped pixel : x:"+x+" y: "+y+"");
-            debugLog("onTouchEvent tapped relative ratio to background image, ratioX: "+((x-startX)/backgroundWidth)+" ratioY: "+((y-startY)/backgroundHeight));
+            debugLog("onTouchEvent tapped relative ratio to backImage image, ratioX: "+((x-startX)/backgroundWidth)+" ratioY: "+((y-startY)/backgroundHeight));
             for (Rect rect : bitmapClickable.keySet()) {
                 if (doesIntersect(x, y, rect)) {
                     if (adapter.itemClickListener != null) {
@@ -375,5 +376,14 @@ public class ImageMapView extends View {
      */
     public void setScaleToBackground(boolean scaleToBackground) {
         this.scaleToBackground = scaleToBackground;
+    }
+
+    /**
+     * @param backImage the view backImage
+     */
+    public void setBackImage(Bitmap backImage) {
+        this.backImage = backImage;
+        onSizeChanged(WIDTH,HEIGHT,WIDTH,HEIGHT);
+        adapter.notifyDataSetHasChanged();
     }
 }
