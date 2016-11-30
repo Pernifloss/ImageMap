@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.zechassault.zonemap.ZoneMap;
 import com.zechassault.zonemap.adapter.MapAdapter;
 import com.zechassault.zonemap.listener.AdapterListener;
 import com.zechassault.zonemap.util.BitmapUtils;
@@ -101,8 +102,8 @@ public class ImageMapView extends View {
 
     private String TAG = "ImageMapView";
 
-    protected boolean uIDebug = false;
-    protected boolean debug = false;
+    protected boolean uIDebug = ZoneMap.isDebug();
+    protected boolean debug = ZoneMap.isDebug();
     protected final Paint debugPaint;
 
     /**
@@ -277,7 +278,7 @@ public class ImageMapView extends View {
         if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
             int x = Math.round(motionEvent.getX());
             int y = Math.round(motionEvent.getY());
-            debugLog("onTouchEvent tapped pixel : x:" + x + " y: " + y + "");
+            debugLog("onTouchEvent tapped pixel : x:" + x + " y: " + y + ""+null+"");
             debugLog("onTouchEvent tapped relative ratio to backImage image, ratioX: " + ((x - startX) / backgroundWidth) + " ratioY: " + ((y - startY) / backgroundHeight));
             for (Rect rect : bitmapClickable.keySet()) {
                 if (doesIntersect(x, y, rect)) {
