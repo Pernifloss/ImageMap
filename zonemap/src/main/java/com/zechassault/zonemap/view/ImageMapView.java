@@ -277,13 +277,13 @@ public class ImageMapView extends View {
         if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
             int x = Math.round(motionEvent.getX());
             int y = Math.round(motionEvent.getY());
-            debugLog("onTouchEvent tapped pixel : x:"+x+" y: "+y+"");
-            debugLog("onTouchEvent tapped relative ratio to backImage image, ratioX: "+((x-startX)/backgroundWidth)+" ratioY: "+((y-startY)/backgroundHeight));
+            debugLog("onTouchEvent tapped pixel : x:" + x + " y: " + y + "");
+            debugLog("onTouchEvent tapped relative ratio to backImage image, ratioX: " + ((x - startX) / backgroundWidth) + " ratioY: " + ((y - startY) / backgroundHeight));
             for (Rect rect : bitmapClickable.keySet()) {
                 if (doesIntersect(x, y, rect)) {
                     if (adapter.itemClickListener != null) {
                         Object item = bitmapClickable.get(rect);
-                        debugLog("onTouchEvent item tapped : "+ item.toString());
+                        debugLog("onTouchEvent item tapped : " + item.toString());
                         if (allowTransparent) {
                             adapter.itemClickListener.onMapItemClick(item);
                         } else {
@@ -292,7 +292,7 @@ public class ImageMapView extends View {
 
                                 adapter.itemClickListener.onMapItemClick(item);
 
-                            }else {
+                            } else {
 
                                 debugLog("onTouchEvent item tapped but on transparent pixel (see setAllowTransparent method) ");
                             }
@@ -307,11 +307,12 @@ public class ImageMapView extends View {
 
     /**
      * Log a string if view is in debug mode
+     *
      * @param s the string to log
      */
     protected void debugLog(String s) {
-        if (debug){
-            Log.d(TAG,s);
+        if (debug) {
+            Log.d(TAG, s);
         }
     }
 
@@ -383,7 +384,7 @@ public class ImageMapView extends View {
      */
     public void setBackImage(Bitmap backImage) {
         this.backImage = backImage;
-        onSizeChanged(WIDTH,HEIGHT,WIDTH,HEIGHT);
+        onSizeChanged(WIDTH, HEIGHT, WIDTH, HEIGHT);
         adapter.notifyDataSetHasChanged();
     }
 }
