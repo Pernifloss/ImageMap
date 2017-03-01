@@ -388,4 +388,22 @@ public class ImageMapView extends View {
         onSizeChanged(WIDTH, HEIGHT, WIDTH, HEIGHT);
         adapter.notifyDataSetHasChanged();
     }
+
+    public Object getItemAtPosition(int x, int y) {
+        for (Rect rect : bitmapClickable.keySet()) {
+            if (doesIntersect(x, y, rect)) {
+                Object item = bitmapClickable.get(rect);
+                if (allowTransparent) {
+                    return item;
+                } else {
+                    int pixel = getPixelClickedAt(x, y, rect, adapter.getItemBitmap(item));
+                    if (pixel != 0) {
+                        return item;
+                    }
+                }
+
+            }
+        }
+        return null;
+    }
 }
