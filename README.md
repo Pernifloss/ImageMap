@@ -1,6 +1,6 @@
 # ImageMap 
 
-/!\ This library is no longed maintained /!\
+/!\ This library is no longed maintained. However i added a branche with the example app in more recent gradle version [on example branch](https://github.com/Pernifloss/ImageMap/tree/example) /!\
 
 Simple Android library to display bitmaps on top of an Image. 
 
