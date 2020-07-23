@@ -1,5 +1,7 @@
 # ImageMap 
 
+/!\ This library is no longed maintained /!\
+
 Simple Android library to display bitmaps on top of an Image. 
 
 For now, you can get it on this repo
