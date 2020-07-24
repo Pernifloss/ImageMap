@@ -305,11 +305,8 @@ public class ImageMapView extends View {
                         } else {
                             int pixel = getPixelClickedAt(x, y, clickable.rect, adapter.getItemBitmap(item));
                             if (pixel != 0) {
-
                                 adapter.itemClickListener.onMapItemClick(item);
-
                             } else {
-
                                 debugLog("onTouchEvent item tapped but on transparent pixel (see setAllowTransparent method) ");
                             }
                         }
