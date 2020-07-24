@@ -18,11 +18,23 @@ import com.zechassault.zonemap.adapter.MapAdapter;
 import com.zechassault.zonemap.listener.AdapterListener;
 import com.zechassault.zonemap.util.BitmapUtils;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
 public class ImageMapView extends View {
+    private class BitmapClickable {
+        Rect rect;
+        Object obj;
+
+        BitmapClickable(Rect destinationRect, Object item) {
+            this.rect = destinationRect;
+            this.obj = item;
+
+        }
+    }
 
     /**
      * Main image bitmap
@@ -87,7 +99,7 @@ public class ImageMapView extends View {
     /**
      * Collection of clickable rectangle that contain item bitmap
      */
-    protected Map<Rect, Object> bitmapClickable = new HashMap<>();
+    protected List<BitmapClickable> bitmapClickable = new ArrayList<>();
 
     /**
      * Define weather or not a click on a transparent pixel trigger item click
@@ -236,17 +248,18 @@ public class ImageMapView extends View {
                             destinationRect,
                             paint);
 
-                    bitmapClickable.put(destinationRect, item);
+                    bitmapClickable.add(new BitmapClickable(destinationRect, item));
                 }
             }
             if (uIDebug) {
-                for (Rect r : bitmapClickable.keySet()) {
+                for (BitmapClickable clickable : bitmapClickable) {
 
-                    canvas.drawRect(r
+
+                    canvas.drawRect(clickable.rect
                             , debugPaint);
                     for (int i = 0; i < adapter.getCount(); i++) {
-                        if (adapter.getItemAtPosition(i).equals(bitmapClickable.get(r))) {
-                            canvas.drawText(i + "", r.left, r.top, debugPaint);
+                        if (adapter.getItemAtPosition(i).equals(clickable.obj)) {
+                            canvas.drawText(i + "", clickable.rect.left, clickable.rect.top, debugPaint);
                         }
                     }
                 }
@@ -278,17 +291,19 @@ public class ImageMapView extends View {
         if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
             int x = Math.round(motionEvent.getX());
             int y = Math.round(motionEvent.getY());
-            debugLog("onTouchEvent tapped pixel : x:" + x + " y: " + y + ""+null+"");
+            debugLog("onTouchEvent tapped pixel : x:" + x + " y: " + y + "" + null + "");
             debugLog("onTouchEvent tapped relative ratio to backImage image, ratioX: " + ((x - startX) / backgroundWidth) + " ratioY: " + ((y - startY) / backgroundHeight));
-            for (Rect rect : bitmapClickable.keySet()) {
-                if (doesIntersect(x, y, rect)) {
+            for (BitmapClickable clickable : bitmapClickable) {
+
+//            for (Rect rect : bitmapClickable.keySet()) {
+                if (doesIntersect(x, y, clickable.rect)) {
                     if (adapter.itemClickListener != null) {
-                        Object item = bitmapClickable.get(rect);
+                        Object item = clickable.obj;
                         debugLog("onTouchEvent item tapped : " + item.toString());
                         if (allowTransparent) {
                             adapter.itemClickListener.onMapItemClick(item);
                         } else {
-                            int pixel = getPixelClickedAt(x, y, rect, adapter.getItemBitmap(item));
+                            int pixel = getPixelClickedAt(x, y, clickable.rect, adapter.getItemBitmap(item));
                             if (pixel != 0) {
 
                                 adapter.itemClickListener.onMapItemClick(item);
@@ -390,9 +405,11 @@ public class ImageMapView extends View {
     }
 
     public Object getItemAtPosition(int x, int y) {
-        for (Rect rect : bitmapClickable.keySet()) {
+        for (BitmapClickable clickable : bitmapClickable) {
+
+            Rect rect = clickable.rect;
             if (doesIntersect(x, y, rect)) {
-                Object item = bitmapClickable.get(rect);
+                Object item = clickable.obj;
                 if (allowTransparent) {
                     return item;
                 } else {

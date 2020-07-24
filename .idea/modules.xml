@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/ImageMap.iml" filepath="$PROJECT_DIR$/ImageMap.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ImageMap2.iml" filepath="$PROJECT_DIR$/ImageMap2.iml" group="ImageMap2" />
+      <module fileurl="file://$PROJECT_DIR$/zonemap/ImageMap2-zonemap.iml" filepath="$PROJECT_DIR$/zonemap/ImageMap2-zonemap.iml" group="ImageMap2/zonemap" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/zonemap/zonemap.iml" filepath="$PROJECT_DIR$/zonemap/zonemap.iml" />
     </modules>

@@ -33,7 +33,7 @@ dependencies {
 }
 
 group = 'com.zechassault.zonemap'
-version = '0.4.3'
+version = '0.4.4'
 
 task generateSourcesJar(type: Jar) {
     from android.sourceSets.main.java.srcDirs
